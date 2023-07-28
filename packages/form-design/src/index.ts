@@ -1,1 +1,1 @@
-export * from './lib/form-design';
+export { default as FormDesign } from './FormDesign';
