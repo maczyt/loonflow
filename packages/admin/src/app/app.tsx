@@ -1,12 +1,22 @@
 import FieldList from './FieldList';
+import { Box } from '@mui/system';
+import FieldProps from './FieldProps';
+
 export function App() {
   return (
-    <div>
-      <style jsx>{`
-        /** your style here **/
-      `}</style>
+    <Box
+      sx={{
+        background: '#f7f8fa',
+        display: 'grid',
+        height: '100vh',
+        overflow: 'hidden',
+        gridTemplateColumns: '300px 1fr 300px',
+      }}
+    >
       <FieldList />
-    </div>
+      <Box>sfds</Box>
+      <FieldProps />
+    </Box>
   );
 }
 
