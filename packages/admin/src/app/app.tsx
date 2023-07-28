@@ -1,6 +1,7 @@
 import FieldList from './FieldList';
 import { Box } from '@mui/system';
 import FieldProps from './FieldProps';
+import Layout from './Layout';
 
 export function App() {
   return (
@@ -14,7 +15,7 @@ export function App() {
       }}
     >
       <FieldList />
-      <Box>sfds</Box>
+      <Layout />
       <FieldProps />
     </Box>
   );

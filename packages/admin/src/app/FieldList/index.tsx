@@ -1,6 +1,6 @@
 import { Field } from '@loonflow/schema';
 import { ReactNode } from 'react';
-import { SingleText } from '@loonflow/icon';
+import { MultiText, SingleText } from '@loonflow/icon';
 import FieldTag from './FieldTag';
 import { Box } from '@mui/system';
 
@@ -21,6 +21,12 @@ const fieldTags: Array<{
     title: '单行文本',
     category: Category.base,
   },
+  {
+    type: Field.textarea,
+    icon: <MultiText />,
+    title: '多行文本',
+    category: Category.base,
+  },
 ];
 
 const FieldList = () => {
@@ -28,13 +34,38 @@ const FieldList = () => {
     <Box
       sx={{
         background: '#fff',
+        padding: '0 24px',
       }}
     >
       <div>
-        <h2>基础控件</h2>
-        {fieldTags.map((field) => {
-          return <FieldTag key={field.type} />;
-        })}
+        <Box
+          component="h2"
+          sx={{
+            fontSize: '14px',
+            color: '#323233',
+            marginTop: '24px',
+            marginBottom: '16px',
+          }}
+        >
+          基础控件
+        </Box>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '10px 8px',
+          }}
+        >
+          {fieldTags.map((field) => {
+            return (
+              <FieldTag
+                key={field.type}
+                title={field.title}
+                icon={field.icon}
+              />
+            );
+          })}
+        </Box>
       </div>
     </Box>
   );
