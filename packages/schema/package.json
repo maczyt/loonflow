@@ -1,0 +1,8 @@
+{
+  "name": "@loonflow/schema",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "devDependencies": {
+    "tslib": "^2.6.1"
+  }
+}
