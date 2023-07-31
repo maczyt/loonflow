@@ -1,1 +1,1 @@
-export * from './lib/render-ui';
+export * from './lib';

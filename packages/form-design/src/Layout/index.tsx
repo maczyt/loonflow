@@ -1,7 +1,19 @@
 import { Box } from '@mui/system';
+import { useDrop } from 'react-dnd';
+import { DnDTypes } from '../types';
 import Empty from './Empty';
 
 const Layout = () => {
+  const [{ isOver }, drop] = useDrop(() => {
+    return {
+      accept: DnDTypes.box,
+      collect(monitor) {
+        return {
+          isOver: monitor.isOver(),
+        };
+      },
+    };
+  });
   return (
     <Box
       sx={{
@@ -14,6 +26,7 @@ const Layout = () => {
           background: '#fff',
           backgroundClip: 'content-box',
         }}
+        ref={drop}
       >
         <Empty />
       </Box>

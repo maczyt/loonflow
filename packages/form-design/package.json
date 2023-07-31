@@ -8,5 +8,9 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "dependencies": {
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1"
   }
 }

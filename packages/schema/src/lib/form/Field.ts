@@ -15,6 +15,9 @@ export enum Field {
   select = 'select',
   textarea = 'textarea',
   attachment = 'attachment',
+
+  /** virtual field */
+  placeholder = 'placeholder',
 }
 
 export const InputField = (): IField => {
