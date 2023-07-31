@@ -62,6 +62,7 @@ const FieldList = () => {
                 key={field.type}
                 title={field.title}
                 icon={field.icon}
+                fieldType={field.type}
               />
             );
           })}

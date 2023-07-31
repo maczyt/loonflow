@@ -1,6 +1,7 @@
-import { FieldProp, Prop } from './Props';
+import { Prop } from './Props';
 
 export interface IField {
+  __id__?: string;
   type: string;
   field: string;
   props: Prop[];
@@ -19,20 +20,3 @@ export enum Field {
   /** virtual field */
   placeholder = 'placeholder',
 }
-
-export const InputField = (): IField => {
-  return {
-    type: Field.input,
-    field: '',
-    props: [
-      {
-        type: FieldProp.title,
-        value: '单行文本',
-      },
-      {
-        type: FieldProp.placeholder,
-        value: '',
-      },
-    ],
-  };
-};

@@ -1,11 +1,11 @@
 import { IField } from '@loonflow/schema';
 import { FC } from 'react';
+import { useSnapshot } from 'valtio';
+import { store } from '../store';
 
-interface IProps {
-  fields: IField[];
-}
-
-const Render: FC<IProps> = ({ fields }) => {
+const Render: FC = () => {
+  const snap = useSnapshot(store);
+  console.log(snap.fields);
   return <div></div>;
 };
 

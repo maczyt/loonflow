@@ -12,6 +12,12 @@ const Layout = () => {
           isOver: monitor.isOver(),
         };
       },
+      hover(item) {
+        console.log(item, 'item');
+      },
+      drop(item, monitor) {
+        console.log('item', item);
+      },
     };
   });
   return (

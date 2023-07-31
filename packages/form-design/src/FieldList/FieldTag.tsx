@@ -1,3 +1,4 @@
+import { Field } from '@loonflow/schema';
 import { Box } from '@mui/system';
 import { FC, ReactNode } from 'react';
 import { useDrag } from 'react-dnd';
@@ -6,11 +7,15 @@ import { DnDTypes } from '../types';
 interface IProps {
   title: string;
   icon: ReactNode;
+  fieldType: Field;
 }
-const FieldTag: FC<IProps> = ({ title, icon }) => {
+const FieldTag: FC<IProps> = ({ title, icon, fieldType }) => {
   const [_, drag] = useDrag(() => {
     return {
       type: DnDTypes.box,
+      item: {
+        type: fieldType,
+      },
     };
   });
   return (
