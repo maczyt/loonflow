@@ -11,3 +11,17 @@ export interface Prop {
   type: FieldProp;
   value: any;
 }
+
+/**
+ * 基础属性配置列表
+ */
+export const BasicFieldProps = [
+  FieldProp.title,
+  FieldProp.placeholder,
+  FieldProp.helper,
+] as const;
+
+/**
+ * 高级属性配置列表
+ */
+export const AdvanceFieldProps: FieldProp[] = [];

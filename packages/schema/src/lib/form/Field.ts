@@ -20,3 +20,7 @@ export enum Field {
   /** virtual field */
   placeholder = 'placeholder',
 }
+
+export const FieldTitle: Partial<Record<Field, string>> = {
+  [Field.input]: '单行文本',
+};

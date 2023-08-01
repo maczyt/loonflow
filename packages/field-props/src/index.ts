@@ -3,9 +3,10 @@ import { FieldProp } from '@loonflow/schema';
 import { FC } from 'react';
 import Title from './Title';
 
-const fieldPropsFactory = new Register<FieldProp, FC>();
+export const fieldPropsFactory = new Register<
+  FieldProp,
+  FC<{ value?: any; onChange?: (v: any) => void }>
+>();
 
 // register
 fieldPropsFactory.set(FieldProp.title, Title);
-
-export default fieldPropsFactory;

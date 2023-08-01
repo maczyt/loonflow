@@ -1,10 +1,10 @@
 import { FC, ReactNode, useRef } from 'react';
 import { useSnapshot } from 'valtio';
-import { store } from '../store';
+import { setActiveField, store } from '../store';
 import { UIFactory } from '@loonflow/render-ui';
 import { Form } from 'antd';
 import { Box } from '@mui/system';
-import { Field, FieldProp } from '@loonflow/schema';
+import { Field, FieldProp, IField } from '@loonflow/schema';
 import { useDrag } from 'react-dnd';
 import { DnDTypes } from '../types';
 
@@ -13,12 +13,14 @@ interface IItemWrapperProps {
   children?: ReactNode;
   index: number;
   type: Field;
+  field?: IField;
 }
 const ItemWrapper: FC<IItemWrapperProps> = ({
   active,
   children,
   type,
   index,
+  field,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [_, drag] = useDrag(() => {
@@ -46,8 +48,12 @@ const ItemWrapper: FC<IItemWrapperProps> = ({
         outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
         position: 'relative',
         marginBottom: '4px',
+        cursor: 'pointer',
       }}
       data-sortable-index={index}
+      onMouseDown={() => {
+        setActiveField(field?.__id__);
+      }}
     >
       {children}
       <Box
@@ -79,6 +85,7 @@ const Render: FC = () => {
               key={field.__id__}
               index={index}
               type={field.type}
+              field={field}
               active={field.__id__ === snap.activeFieldId}
             >
               <Form.Item label={label}>

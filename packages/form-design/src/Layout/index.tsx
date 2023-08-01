@@ -37,24 +37,16 @@ const Layout = () => {
           if (!snap.isEmpty) {
             children.forEach((child, childIndex) => {
               const rect = child.getBoundingClientRect();
-              // 第一个
-              if (childIndex === 0) {
-                if (top < rect.top) {
-                  index = 0;
-                  return;
-                }
-              }
-              // 最后一个
-              else if (childIndex === children.length - 1) {
-                if (top > rect.bottom) {
-                  index = childIndex + 1;
-                  return;
-                }
-              }
-              if (rect.top <= top && rect.bottom >= top) {
+              console.log(rect.top, rect.bottom, 'rect', top, childIndex);
+              if (top < rect.top) {
                 index = childIndex;
+              } else if (rect.top <= top && rect.bottom >= top) {
+                index = childIndex;
+              } else if (top > rect.bottom) {
+                index = childIndex + 1;
               }
             });
+            console.log('index', index);
           }
           addPlaceholder(index);
         }
