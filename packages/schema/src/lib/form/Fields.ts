@@ -19,6 +19,21 @@ fieldGeneratorFactory.set(Field.input, () => ({
     },
   ],
 }));
+fieldGeneratorFactory.set(Field.textarea, () => ({
+  type: Field.textarea,
+  field: `textarea-${uid()}`,
+  __id__: `field-${uid()}`,
+  props: [
+    {
+      type: FieldProp.title,
+      value: '多行文本',
+    },
+    {
+      type: FieldProp.placeholder,
+      value: '',
+    },
+  ],
+}));
 fieldGeneratorFactory.set(Field.placeholder, () => ({
   type: Field.placeholder,
   __id__: `field-${uid()}`,

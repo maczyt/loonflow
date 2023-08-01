@@ -10,6 +10,7 @@ import { useUpdateEffect } from 'ahooks';
 
 const Layout = () => {
   const dropRef = useRef<HTMLDivElement>(null);
+  const snap = useSnapshot(store);
   const [{ isOver }, drop] = useDrop<
     DragItem,
     void,
@@ -26,28 +27,30 @@ const Layout = () => {
       },
       hover(item: DragItem, monitor) {
         if (!dropRef.current) return;
-        const { y: top } = monitor.getClientOffset() as XYCoord;
+        const { y: top, x: left } = monitor.getClientOffset() as XYCoord;
         const children = dropRef.current.querySelectorAll(
           '[data-sortable-index]'
         ) as unknown as HTMLDivElement[];
         if (item.sortable) {
           // empty
         } else {
-          let index = 0;
-          if (!snap.isEmpty) {
-            children.forEach((child, childIndex) => {
-              const rect = child.getBoundingClientRect();
-              console.log(rect.top, rect.bottom, 'rect', top, childIndex);
-              if (top < rect.top) {
-                index = childIndex;
-              } else if (rect.top <= top && rect.bottom >= top) {
-                index = childIndex;
-              } else if (top > rect.bottom) {
-                index = childIndex + 1;
-              }
-            });
-            console.log('index', index);
+          let index = children.length;
+          const pointDom = document.elementFromPoint(left, top);
+          if (pointDom?.closest('[data-drag-placeholder]')) return;
+          const target = document
+            .elementFromPoint(left, top)
+            ?.closest('[data-sortable-index]');
+          console.log('targer asjdhakjdhakjsd', target);
+          const rect = target?.getBoundingClientRect();
+          if (rect) {
+            const middle = rect?.top + (rect?.bottom - rect.top) / 2;
+            index = +(target?.getAttribute('data-sortable-index') ?? 0);
+
+            if (top >= middle) {
+              index = index + 1;
+            }
           }
+          console.log('index', index);
           addPlaceholder(index);
         }
       },
@@ -62,7 +65,6 @@ const Layout = () => {
       removePlaceholder();
     }
   }, [isOver]);
-  const snap = useSnapshot(store);
   drop(dropRef);
   return (
     <Box

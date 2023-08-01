@@ -39,6 +39,7 @@ const ItemWrapper: FC<IItemWrapperProps> = ({
     <Box
       ref={ref}
       sx={{ height: '12px', background: '#155BD4', margin: '4px 0' }}
+      data-drag-placeholder
     />
   ) : (
     <Box
@@ -73,9 +74,12 @@ const Render: FC = () => {
   const snap = useSnapshot(store);
   return (
     <>
-      {snap.fields.map((field, index) => {
+      {snap.fields.map((field) => {
         const fieldItem = UIFactory.get(field.type);
         const Component = fieldItem?.component;
+        const index = snap.realField.findIndex(
+          (rField) => rField.__id__ === field.__id__
+        );
         if (Component) {
           const label = field.props?.find(
             (prop) => prop.type === FieldProp.title

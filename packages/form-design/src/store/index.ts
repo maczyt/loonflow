@@ -80,6 +80,3 @@ export const setProp = <T>(type: FieldProp, value: T) => {
     }
   });
 };
-
-addField(Field.input, 0);
-setActiveField(store.fields[0].__id__);
