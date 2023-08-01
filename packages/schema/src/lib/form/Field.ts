@@ -2,9 +2,9 @@ import { Prop } from './Props';
 
 export interface IField {
   __id__?: string;
-  type: string;
-  field: string;
-  props: Prop[];
+  type: Field;
+  field?: string;
+  props?: Prop[];
 }
 
 export enum Field {

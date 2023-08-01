@@ -19,6 +19,10 @@ fieldGeneratorFactory.set(Field.input, () => ({
     },
   ],
 }));
+fieldGeneratorFactory.set(Field.placeholder, () => ({
+  type: Field.placeholder,
+  __id__: `field-${uid()}`,
+}));
 
 export const generateNewField = (field: Field): IField => {
   const generator = fieldGeneratorFactory.get(field);
