@@ -1,4 +1,4 @@
-import { Placeholder } from '@loonflow/icon';
+import { IconPlaceholder } from '@loonflow/icon';
 import { Box } from '@mui/system';
 
 const Empty = () => {
@@ -55,7 +55,7 @@ const Empty = () => {
           }}
         />
       </Box>
-      <Placeholder
+      <IconPlaceholder
         style={{
           position: 'absolute',
           zIndex: 100,

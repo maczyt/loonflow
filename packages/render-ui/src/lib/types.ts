@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 
 export interface IFieldProps {
   value?: any;
@@ -6,5 +6,8 @@ export interface IFieldProps {
 }
 
 export interface FactoryItem {
-  component: FC;
+  component: FC<{
+    children?: ReactNode;
+    className?: string;
+  }>;
 }

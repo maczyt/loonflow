@@ -1,12 +1,16 @@
 import { Register } from '@loonflow/common-tools';
 import { Field } from '@loonflow/schema';
+import ColItem from './Col';
 import InputItem from './Input';
 import MultiTextItem from './MultiText';
-import PlaceholderItem from './Placeholder';
+import RowItem from './Row';
 import { FactoryItem } from './types';
 
 export const UIFactory = new Register<Field, FactoryItem>();
 
 UIFactory.set(Field.input, InputItem);
 UIFactory.set(Field.textarea, MultiTextItem);
-UIFactory.set(Field.placeholder, PlaceholderItem);
+
+/** layout */
+UIFactory.set(Field.row, RowItem);
+UIFactory.set(Field.col, ColItem);

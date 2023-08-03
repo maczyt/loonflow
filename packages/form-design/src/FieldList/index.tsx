@@ -1,6 +1,6 @@
 import { Field } from '@loonflow/schema';
-import { ReactNode } from 'react';
-import { MultiText, SingleText } from '@loonflow/icon';
+import { Fragment, ReactNode } from 'react';
+import { IconMultiText, IconRow, IconSingleText } from '@loonflow/icon';
 import FieldTag from './FieldTag';
 import { Box } from '@mui/system';
 
@@ -17,19 +17,37 @@ const fieldTags: Array<{
 }> = [
   {
     type: Field.input,
-    icon: <SingleText />,
+    icon: <IconSingleText />,
     title: '单行文本',
     category: Category.base,
   },
   {
     type: Field.textarea,
-    icon: <MultiText />,
+    icon: <IconMultiText />,
     title: '多行文本',
     category: Category.base,
   },
+  {
+    type: Field.row,
+    icon: <IconRow />,
+    title: '栅格布局',
+    category: Category.layout,
+  },
 ];
 
+const fieldTagsMap: Record<string, typeof fieldTags> = fieldTags.reduce(
+  (map, tag) => {
+    if (!map[tag.category]) {
+      map[tag.category] = [];
+    }
+    map[tag.category].push(tag);
+    return map;
+  },
+  Object.create(null)
+);
+
 const FieldList = () => {
+  console.log('fieldTagsMap', fieldTagsMap);
   return (
     <Box
       sx={{
@@ -38,35 +56,41 @@ const FieldList = () => {
       }}
     >
       <div>
-        <Box
-          component="h2"
-          sx={{
-            fontSize: '14px',
-            color: '#323233',
-            marginTop: '24px',
-            marginBottom: '16px',
-          }}
-        >
-          基础控件
-        </Box>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '10px 8px',
-          }}
-        >
-          {fieldTags.map((field) => {
-            return (
-              <FieldTag
-                key={field.type}
-                title={field.title}
-                icon={field.icon}
-                fieldType={field.type}
-              />
-            );
-          })}
-        </Box>
+        {Object.keys(fieldTagsMap).map((category) => {
+          return (
+            <Fragment key={category}>
+              <Box
+                component="h2"
+                sx={{
+                  fontSize: '14px',
+                  color: '#323233',
+                  marginTop: '24px',
+                  marginBottom: '16px',
+                }}
+              >
+                {category}
+              </Box>
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: '1fr 1fr',
+                  gap: '10px 8px',
+                }}
+              >
+                {fieldTagsMap[category].map((field) => {
+                  return (
+                    <FieldTag
+                      key={field.type}
+                      title={field.title}
+                      icon={field.icon}
+                      fieldType={field.type}
+                    />
+                  );
+                })}
+              </Box>
+            </Fragment>
+          );
+        })}
       </div>
     </Box>
   );

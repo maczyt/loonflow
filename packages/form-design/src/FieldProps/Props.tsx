@@ -4,7 +4,7 @@ import {
   FieldTitle,
 } from '@loonflow/schema';
 import { Box } from '@mui/system';
-import { Tabs, Typography } from 'antd';
+import { Form, Tabs, Typography } from 'antd';
 import { useState } from 'react';
 import { useSnapshot } from 'valtio';
 import { store } from '../store';
@@ -56,9 +56,11 @@ const Props = () => {
             label: '基础设置',
             children: (
               <Box>
-                {basicFieldProps?.map((prop, index) => {
-                  return <PropSetting prop={prop} key={index} />;
-                })}
+                <Form layout="vertical">
+                  {basicFieldProps?.map((prop, index) => {
+                    return <PropSetting prop={prop} key={index} />;
+                  })}
+                </Form>
               </Box>
             ),
           },

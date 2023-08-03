@@ -1,4 +1,4 @@
-import { Empty } from '@loonflow/icon';
+import { IconEmpty } from '@loonflow/icon';
 import { Box } from '@mui/system';
 import { Empty as AntEmpty } from 'antd';
 import { useSnapshot } from 'valtio';
@@ -20,7 +20,7 @@ const FieldProps = () => {
           style={{
             marginTop: '120px',
           }}
-          image={<Empty />}
+          image={<IconEmpty />}
           description="请在左侧画布选中控件"
         />
       )}

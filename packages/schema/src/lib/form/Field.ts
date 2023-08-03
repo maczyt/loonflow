@@ -5,6 +5,7 @@ export interface IField {
   type: Field;
   field?: string;
   props?: Prop[];
+  children?: IField[];
 }
 
 export enum Field {
@@ -17,7 +18,12 @@ export enum Field {
   textarea = 'textarea',
   attachment = 'attachment',
 
-  /** virtual field */
+  /** 布局控件 */
+  row = 'row',
+  col = 'col',
+  space = 'space',
+
+  /** virtual */
   placeholder = 'placeholder',
 }
 

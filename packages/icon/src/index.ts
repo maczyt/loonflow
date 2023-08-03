@@ -1,6 +1,7 @@
-import { ReactComponent as SingleText } from './SingleText.svg';
-import { ReactComponent as Empty } from './Empty.svg';
-import { ReactComponent as Placeholder } from './Placeholder.svg';
-import { ReactComponent as MultiText } from './MultiText.svg';
+import { ReactComponent as IconSingleText } from './SingleText.svg';
+import { ReactComponent as IconEmpty } from './Empty.svg';
+import { ReactComponent as IconPlaceholder } from './Placeholder.svg';
+import { ReactComponent as IconMultiText } from './MultiText.svg';
+import { ReactComponent as IconRow } from './Row.svg';
 
-export { SingleText, Empty, Placeholder, MultiText };
+export { IconSingleText, IconEmpty, IconPlaceholder, IconMultiText, IconRow };

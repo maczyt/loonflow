@@ -38,7 +38,10 @@ export const addField = (field: Field, index = 0) => {
   const fieldObj = generateNewField(field);
   store.fields.splice(index, 0, fieldObj);
 };
-
+export const moveField = (from: number, to: number) => {
+  if (from === to) return;
+  arrayMove(store.fields, from, to);
+};
 export const addPlaceholder = (index: number) => {
   if (!store.placeholderField) {
     store.placeholderField = generateNewField(Field.placeholder);
@@ -80,3 +83,12 @@ export const setProp = <T>(type: FieldProp, value: T) => {
     }
   });
 };
+export const findFieldIndex = (field: IField) =>
+  findFieldIndexById(field.__id__);
+
+export const findFieldIndexById = (id?: string) => {
+  const index = store.fields.findIndex((field) => field.__id__ === id);
+  return index === -1 ? store.fields.length : index;
+};
+
+addField(Field.input);

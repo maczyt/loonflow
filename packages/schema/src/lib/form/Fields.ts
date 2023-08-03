@@ -3,11 +3,14 @@ import { FieldProp } from './Props';
 import { Register } from '@loonflow/common-tools';
 import { uid } from 'uid';
 
+const generateFieldId = () => `field-${uid()}`;
+const generateFieldKey = (prefix: string) => `${prefix}-${uid()}`;
+
 export const fieldGeneratorFactory = new Register<Field, () => IField>();
 fieldGeneratorFactory.set(Field.input, () => ({
   type: Field.input,
-  field: `input-${uid()}`,
-  __id__: `field-${uid()}`,
+  field: generateFieldKey('input'),
+  __id__: generateFieldId(),
   props: [
     {
       type: FieldProp.title,
@@ -21,8 +24,8 @@ fieldGeneratorFactory.set(Field.input, () => ({
 }));
 fieldGeneratorFactory.set(Field.textarea, () => ({
   type: Field.textarea,
-  field: `textarea-${uid()}`,
-  __id__: `field-${uid()}`,
+  field: generateFieldKey('textarea'),
+  __id__: generateFieldId(),
   props: [
     {
       type: FieldProp.title,
@@ -34,9 +37,19 @@ fieldGeneratorFactory.set(Field.textarea, () => ({
     },
   ],
 }));
+fieldGeneratorFactory.set(Field.col, () => ({
+  type: Field.col,
+  __id__: generateFieldId(),
+  children: [fieldGeneratorFactory.get(Field.input)()],
+}));
+fieldGeneratorFactory.set(Field.row, () => ({
+  type: Field.row,
+  __id__: generateFieldId(),
+  children: [fieldGeneratorFactory.get(Field.col)()],
+}));
 fieldGeneratorFactory.set(Field.placeholder, () => ({
   type: Field.placeholder,
-  __id__: `field-${uid()}`,
+  __id__: generateFieldId(),
 }));
 
 export const generateNewField = (field: Field): IField => {
