@@ -95,7 +95,3 @@ export const addOrMoveField = (
     addNewField(item.type, index, fields);
   }
 };
-
-console.log('store', store);
-(window as any).toJs = toJS;
-(window as any).store = store;

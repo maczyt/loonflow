@@ -1,10 +1,21 @@
 import { FieldProp, IField } from '@loonflow/schema';
-import { useMemo } from 'react';
+import { observe } from 'mobx';
+import { useEffect, useState } from 'react';
 
 export const useLabel = (field: IField) => {
-  return useMemo(() => {
-    return (
-      field.props?.find((prop) => prop.type === FieldProp.title)?.value ?? ''
+  const [label, setLabel] = useState('');
+  useEffect(() => {
+    const labelProp = field.props?.find(
+      (prop) => prop.type === FieldProp.title
     );
-  }, [field.props]);
+    setLabel(labelProp?.value);
+    const dispose = observe(labelProp!, (ev) => {
+      // @ts-ignore
+      setLabel(ev.newValue);
+    });
+    return () => {
+      dispose();
+    };
+  }, [field]);
+  return label;
 };

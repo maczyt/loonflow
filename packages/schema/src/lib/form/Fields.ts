@@ -40,12 +40,14 @@ fieldGeneratorFactory.set(Field.textarea, () => ({
 fieldGeneratorFactory.set(Field.col, () => ({
   type: Field.col,
   __id__: generateFieldId(),
-  children: [fieldGeneratorFactory.get(Field.input)()],
+  children: [],
 }));
 fieldGeneratorFactory.set(Field.row, () => ({
   type: Field.row,
   __id__: generateFieldId(),
-  children: [fieldGeneratorFactory.get(Field.col)()],
+  children: [fieldGeneratorFactory.get(Field.col)?.()].filter(
+    (v): v is IField => Boolean(v)
+  ),
 }));
 fieldGeneratorFactory.set(Field.placeholder, () => ({
   type: Field.placeholder,

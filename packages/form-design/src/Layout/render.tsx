@@ -35,6 +35,7 @@ export const RenderColField: FC<{
         outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
         position: 'relative',
         cursor: 'pointer',
+        minHeight: 50,
       }}
       onClick={(ev) => {
         ev.preventDefault();
@@ -57,33 +58,39 @@ export const RenderColField: FC<{
   ) : null;
 });
 
+export const RenderRealField: FC<{ field: IField }> = observer(({ field }) => {
+  const label = useLabel(field);
+  const fieldItem = UIFactory.get(field.type)!;
+  const Component = fieldItem.component;
+  return (
+    <FieldWrapper
+      hideBackdrop={field.type === Field.row}
+      field={field}
+      sx={{
+        minHeight: 50,
+      }}
+    >
+      <Form.Item label={label}>
+        <Component>
+          {field.children?.map((childField) => (
+            <RenderField field={childField} key={childField.__id__} />
+          ))}
+        </Component>
+      </Form.Item>
+    </FieldWrapper>
+  );
+});
+
 export const RenderField: FC<{
   field: IField;
 }> = ({ field }) => {
-  const label = useLabel(field);
   const fieldItem = UIFactory.get(field.type);
   const Component = fieldItem?.component;
   return Component ? (
     field.type === Field.col ? (
       <RenderColField field={field} />
     ) : (
-      <FieldWrapper
-        hideBackdrop={field.type === Field.row}
-        field={field}
-        sx={{
-          minHeight: 50,
-        }}
-      >
-        <Form.Item label={label}>
-          <Component>
-            {field.children?.map((childField) => (
-              <RenderField field={childField} key={childField.__id__} />
-            ))}
-          </Component>
-        </Form.Item>
-        {field.__id__}
-        {field.type}
-      </FieldWrapper>
+      <RenderRealField field={field} />
     )
   ) : null;
 };

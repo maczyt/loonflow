@@ -29,4 +29,7 @@ export enum Field {
 
 export const FieldTitle: Partial<Record<Field, string>> = {
   [Field.input]: '单行文本',
+  [Field.textarea]: '多行文本',
+  [Field.row]: '行',
+  [Field.col]: '列',
 };

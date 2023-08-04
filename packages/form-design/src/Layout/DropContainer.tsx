@@ -2,14 +2,7 @@ import { IField } from '@loonflow/schema';
 import { Box, SxProps } from '@mui/system';
 import { useUpdateEffect } from 'ahooks';
 import { observer } from 'mobx-react';
-import {
-  FC,
-  Fragment,
-  isValidElement,
-  ReactNode,
-  useCallback,
-  useRef,
-} from 'react';
+import { FC, Fragment, isValidElement, ReactNode } from 'react';
 import useNestedDrop from '../hooks/useNestedDrop';
 import { DnDTypes, DragItem } from '../types';
 import DragContainer from './DragContainer';
@@ -66,11 +59,6 @@ const DropContainer: FC<IProps> = ({
   onDrop,
   onLeave,
 }) => {
-  const placeholderRef = useRef<null | HTMLElement>(null);
-  const removePlaceholderElm = useCallback(() => {
-    if (placeholderRef.current?.hasAttribute('data-drop-item-id')) return;
-    placeholderRef.current?.remove();
-  }, []);
   const { ref, isOver } = useNestedDrop({
     accept,
     level,
@@ -83,15 +71,7 @@ const DropContainer: FC<IProps> = ({
     }
   }, [isOver]);
   return (
-    <Box
-      ref={ref}
-      className={className}
-      data-drop-container
-      sx={sx}
-      style={{
-        border: '1px solid red',
-      }}
-    >
+    <Box ref={ref} className={className} data-drop-container sx={sx}>
       {fields?.length === 0 && !isOver
         ? renderEmpty()
         : fields?.map((field, index) => {

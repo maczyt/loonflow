@@ -1,6 +1,7 @@
 import { Prop } from '@loonflow/schema';
 import { FC } from 'react';
 import { fieldPropsFactory } from '@loonflow/field-props';
+import { observer } from 'mobx-react';
 
 interface IProps {
   prop: Prop;
@@ -21,4 +22,4 @@ const PropSetting: FC<IProps> = ({ prop }) => {
   return null;
 };
 
-export default PropSetting;
+export default observer(PropSetting);
