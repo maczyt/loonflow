@@ -1,7 +1,7 @@
 import { Prop } from './Props';
 
 export interface IField {
-  __id__?: string;
+  __id__: string;
   type: Field;
   field?: string;
   props?: Prop[];

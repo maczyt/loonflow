@@ -1,19 +1,18 @@
 import { IconEmpty } from '@loonflow/icon';
 import { Box } from '@mui/system';
 import { Empty as AntEmpty } from 'antd';
-import { useSnapshot } from 'valtio';
+import { observer } from 'mobx-react';
 import { store } from '../store';
 import Props from './Props';
 
 const FieldProps = () => {
-  const snap = useSnapshot(store);
   return (
     <Box
       sx={{
         background: '#fff',
       }}
     >
-      {snap.activeField ? (
+      {store.activeField ? (
         <Props />
       ) : (
         <AntEmpty
@@ -28,4 +27,4 @@ const FieldProps = () => {
   );
 };
 
-export default FieldProps;
+export default observer(FieldProps);

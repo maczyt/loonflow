@@ -47,7 +47,6 @@ const fieldTagsMap: Record<string, typeof fieldTags> = fieldTags.reduce(
 );
 
 const FieldList = () => {
-  console.log('fieldTagsMap', fieldTagsMap);
   return (
     <Box
       sx={{

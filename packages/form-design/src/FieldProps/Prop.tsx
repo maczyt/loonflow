@@ -1,7 +1,6 @@
 import { Prop } from '@loonflow/schema';
 import { FC } from 'react';
 import { fieldPropsFactory } from '@loonflow/field-props';
-import { setProp } from '../store';
 
 interface IProps {
   prop: Prop;
@@ -14,7 +13,7 @@ const PropSetting: FC<IProps> = ({ prop }) => {
       <Comp
         value={prop.value}
         onChange={(v) => {
-          setProp(prop.type, v);
+          prop.value = v;
         }}
       />
     );

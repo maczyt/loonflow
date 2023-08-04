@@ -5,18 +5,17 @@ import {
 } from '@loonflow/schema';
 import { Box } from '@mui/system';
 import { Form, Tabs, Typography } from 'antd';
+import { observer } from 'mobx-react';
 import { useState } from 'react';
-import { useSnapshot } from 'valtio';
 import { store } from '../store';
 import PropSetting from './Prop';
 
 const Props = () => {
-  const snap = useSnapshot(store);
   const [tabKey, setTabKey] = useState('basic');
-  const basicFieldProps = snap.activeField?.props?.filter((prop) =>
+  const basicFieldProps = store.activeField?.props?.filter((prop) =>
     BasicFieldProps.includes(prop.type)
   );
-  const advanceFieldProps = snap.activeField?.props?.filter((prop) =>
+  const advanceFieldProps = store.activeField?.props?.filter((prop) =>
     AdvanceFieldProps.includes(prop.type)
   );
   return (
@@ -40,7 +39,7 @@ const Props = () => {
         level={2}
         style={{ fontSize: '18px', margin: '24px 16px 12px' }}
       >
-        {FieldTitle[snap.activeField!.type]}
+        {FieldTitle[store.activeField?.type]}
       </Typography.Title>
       <Tabs
         activeKey={tabKey}
@@ -78,4 +77,4 @@ const Props = () => {
   );
 };
 
-export default Props;
+export default observer(Props);

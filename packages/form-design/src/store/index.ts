@@ -1,94 +1,101 @@
-import { arrayMove } from '@loonflow/common-tools';
-import { Field, FieldProp, generateNewField, IField } from '@loonflow/schema';
-import { proxy } from 'valtio';
+import { Field, generateNewField, IField } from '@loonflow/schema';
+import { configure, makeAutoObservable, toJS } from 'mobx';
+import { DragItem } from '../types';
+import { injectStores } from '@mobx-devtools/tools';
 
-export const store = proxy<{
-  activeFieldId: string;
-  fields: IField[];
-  activeField?: IField;
-  placeholderField: IField | null;
-  isEmpty: boolean;
-  realField: IField[];
-  placeholderIndex: number;
-}>({
-  activeFieldId: '',
-  placeholderField: null,
-  fields: [],
+configure({
+  enforceActions: 'never',
+});
+class DesignStore {
+  activeFieldId = '';
+  fields: IField[] = [];
+
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  get flattenFields() {
+    const map: Record<string, IField> = Object.create(null);
+    const flatten = (fields: IField[]) => {
+      fields.forEach((field) => {
+        map[field.__id__] = field;
+        if (field.children) {
+          flatten(field.children);
+        }
+      });
+    };
+    flatten(this.fields);
+    return map;
+  }
+
   get activeField() {
-    return this.fields.find(
-      (field: IField) => field.__id__ === this.activeFieldId
-    );
-  },
+    return this.flattenFields[this.activeFieldId];
+  }
+
   get isEmpty() {
     return this.fields.length === 0;
-  },
-  get realField() {
-    return this.fields.filter(
-      (field: IField) => field.type !== Field.placeholder
-    );
-  },
-  get placeholderIndex() {
-    return this.fields.findIndex(
-      (field: IField) => field.__id__ === store.placeholderField?.__id__
-    );
-  },
+  }
+}
+
+export const store = new DesignStore();
+
+injectStores({
+  store,
 });
 
-export const addField = (field: Field, index = 0) => {
-  const fieldObj = generateNewField(field);
-  store.fields.splice(index, 0, fieldObj);
+export const setActiveId = (id: string) => {
+  store.activeFieldId = id;
 };
-export const moveField = (from: number, to: number) => {
-  if (from === to) return;
-  arrayMove(store.fields, from, to);
+export const addNewField = (type: Field, index = 0, fields: IField[]) => {
+  const field = generateNewField(type);
+  fields.splice(index, 0, field);
+  setActiveId(field.__id__);
 };
-export const addPlaceholder = (index: number) => {
-  if (!store.placeholderField) {
-    store.placeholderField = generateNewField(Field.placeholder);
-    store.fields.push(store.placeholderField);
-  } else {
-    const placeholderIndex = store.placeholderIndex;
-    if (index !== placeholderIndex) {
-      arrayMove(store.fields, placeholderIndex, index);
+export const addField = (field: IField, index = 0, fields: IField[]) => {
+  fields.splice(index, 0, field);
+  setActiveId(field.__id__);
+};
+export const removeField = (field: IField) => {
+  const remove = (fields: IField[]) => {
+    const index = fields.findIndex((f) => f.__id__ === field.__id__);
+    if (index > -1) {
+      fields.splice(index, 1);
     }
-  }
-};
-export const removePlaceholder = (field?: Field) => {
-  if (field) {
-    store.fields = store.fields.map((item) => {
-      if (item.type === Field.placeholder) {
-        const newField = generateNewField(field);
-        setActiveField(newField.__id__);
-        return newField;
+    fields.forEach((f) => {
+      if (f.children && f.children.length > 0) {
+        remove(f.children);
       }
-      return item;
     });
-  } else {
-    store.fields = store.fields.filter(
-      (field) => field.type !== Field.placeholder
-    );
+  };
+  remove(store.fields);
+  if (store.activeFieldId === field.__id__) {
+    store.activeFieldId = '';
   }
-  store.placeholderField = null;
 };
-export const setActiveField = (id?: string) => {
-  store.activeFieldId = id ?? '';
+export const findFieldIndexInFieldsById = (
+  id?: string,
+  fields: IField[] = []
+) => {
+  const index = fields.findIndex((field) => field.__id__ === id);
+  return index === -1 ? fields.length : index;
 };
-export const setProp = <T>(type: FieldProp, value: T) => {
-  const activeField = store.fields.find(
-    (field) => field.__id__ === store.activeFieldId
-  );
-  activeField?.props?.forEach((prop) => {
-    if (prop.type === type) {
-      prop.value = value;
-    }
-  });
+export const addOrMoveField = (
+  fields: IField[],
+  item: DragItem,
+  nextId?: string
+) => {
+  if (item.field) {
+    // remove old
+    removeField(item.field);
+    const index = findFieldIndexInFieldsById(nextId, fields);
+    addField(item.field, index, fields);
+  } else {
+    // add
+    const index = findFieldIndexInFieldsById(nextId, fields);
+    addNewField(item.type, index, fields);
+  }
 };
-export const findFieldIndex = (field: IField) =>
-  findFieldIndexById(field.__id__);
 
-export const findFieldIndexById = (id?: string) => {
-  const index = store.fields.findIndex((field) => field.__id__ === id);
-  return index === -1 ? store.fields.length : index;
-};
-
-addField(Field.input);
+console.log('store', store);
+(window as any).toJs = toJS;
+(window as any).store = store;

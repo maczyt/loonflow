@@ -1,160 +1,14 @@
-import { FC, ReactNode, useRef } from 'react';
-import { useSnapshot } from 'valtio';
-import { findFieldIndex, moveField, setActiveField, store } from '../store';
+import { FC } from 'react';
+import { addOrMoveField, setActiveId, store } from '../store';
 import { UIFactory } from '@loonflow/render-ui';
 import { Form } from 'antd';
 import { Box } from '@mui/system';
-import { Field, FieldProp, IField } from '@loonflow/schema';
-import { useDrag, useDrop, XYCoord } from 'react-dnd';
-import { DnDTypes, DragItem } from '../types';
+import { Field, IField } from '@loonflow/schema';
+import { DnDTypes } from '../types';
 import { useLabel } from '../hooks/useGetProp';
 import DropContainer from './DropContainer';
 import FieldWrapper from './FieldWrapper';
-
-interface IItemWrapperProps {
-  active?: boolean;
-  children?: ReactNode;
-  index: number;
-  type: Field;
-  field?: IField;
-}
-const ItemWrapper: FC<IItemWrapperProps> = ({
-  active,
-  children,
-  type,
-  index,
-  field,
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [{ isDragging }, drag] = useDrag(() => {
-    return {
-      type: DnDTypes.box,
-      collect(monitor) {
-        return {
-          isDragging: monitor.isDragging(),
-        };
-      },
-      item() {
-        return {
-          index,
-          sortable: true,
-          id: field?.__id__,
-        };
-      },
-    };
-  });
-  const [_, drop] = useDrop<DragItem, void, any>(() => {
-    return {
-      accept: DnDTypes.box,
-      canDrop(item) {
-        // 支持grid
-        return !!item.sortable;
-      },
-      hover(item, monitor) {
-        if (!ref.current || !item.sortable) return;
-        // 外层的index不会随着移动而马上更新，所以需要手动去数组中获取
-        const index = findFieldIndex(field!);
-        const dragIndex = item.index as number;
-        const hoverIndex = index;
-        // Don't replace items with themselves
-        if (item.id === field?.__id__ || dragIndex === hoverIndex) {
-          return;
-        }
-        // Determine rectangle on screen
-        const hoverBoundingRect = ref.current?.getBoundingClientRect();
-        // Get vertical middle
-        const hoverMiddleY =
-          (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        // Determine mouse position
-        const clientOffset = monitor.getClientOffset();
-        // Get pixels to the top
-        const hoverClientY =
-          (clientOffset as XYCoord).y - hoverBoundingRect.top;
-        if (hoverClientY < 0) return;
-        // Dragging downwards
-        if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-          return;
-        }
-        // Dragging upwards
-        if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-          return;
-        }
-        moveField(dragIndex, hoverIndex);
-        item.index = hoverIndex;
-      },
-    };
-  });
-  drag(drop(ref));
-  return type === Field.placeholder ? (
-    <Box
-      ref={ref}
-      sx={{ height: '12px', background: '#155BD4', margin: '4px 0' }}
-      data-drag-placeholder
-    />
-  ) : (
-    <Box
-      ref={ref}
-      sx={{
-        padding: '8px',
-        outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
-        position: 'relative',
-        marginBottom: '16px',
-        cursor: 'pointer',
-        opacity: isDragging ? 0 : 1,
-      }}
-      data-sortable-index={index}
-      onMouseDown={() => {
-        setActiveField(field?.__id__);
-      }}
-    >
-      {children}
-      <Box
-        sx={{
-          position: 'absolute',
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0,
-        }}
-      />
-    </Box>
-  );
-};
-
-const Render: FC = () => {
-  const snap = useSnapshot(store);
-  return (
-    <>
-      {snap.fields.map((field) => {
-        const fieldItem = UIFactory.get(field.type);
-        const Component = fieldItem?.component;
-        const index = snap.realField.findIndex(
-          (rField) => rField.__id__ === field.__id__
-        );
-        if (Component) {
-          const label = field.props?.find(
-            (prop) => prop.type === FieldProp.title
-          )?.value;
-          return (
-            <ItemWrapper
-              key={field.__id__}
-              index={index}
-              type={field.type}
-              // @ts-ignore
-              field={field}
-              active={field.__id__ === snap.activeFieldId}
-            >
-              <Form.Item label={label}>
-                <Component />
-              </Form.Item>
-            </ItemWrapper>
-          );
-        }
-        return null;
-      })}
-    </>
-  );
-};
+import { observer } from 'mobx-react';
 
 export const RenderPlaceholder: FC<{
   field?: IField;
@@ -170,20 +24,38 @@ export const RenderPlaceholder: FC<{
 
 export const RenderColField: FC<{
   field: IField;
-}> = ({ field }) => {
+}> = observer(({ field }) => {
   const fieldItem = UIFactory.get(field.type);
   const Component = fieldItem?.component;
+  const active = store.activeFieldId === field?.__id__;
   return Component ? (
-    <Component style={{}}>
+    <Component
+      style={{
+        padding: '8px',
+        outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
+        position: 'relative',
+        cursor: 'pointer',
+      }}
+      onClick={(ev) => {
+        ev.preventDefault();
+        ev.stopPropagation();
+        setActiveId(field.__id__);
+      }}
+    >
       <DropContainer
+        level="column"
         accept={DnDTypes.box}
         fields={field.children}
         renderField={(field) => <RenderField field={field} />}
-        onDrop={(item, nextId) => {}}
+        renderPlaceholder={(field) => <RenderPlaceholder field={field} />}
+        onDrop={(item, nextId) => {
+          // console.log()
+          addOrMoveField(field.children!, item, nextId);
+        }}
       />
     </Component>
   ) : null;
-};
+});
 
 export const RenderField: FC<{
   field: IField;
@@ -191,7 +63,6 @@ export const RenderField: FC<{
   const label = useLabel(field);
   const fieldItem = UIFactory.get(field.type);
   const Component = fieldItem?.component;
-  console.log(field, 'field');
   return Component ? (
     field.type === Field.col ? (
       <RenderColField field={field} />
@@ -216,5 +87,3 @@ export const RenderField: FC<{
     )
   ) : null;
 };
-
-export default Render;

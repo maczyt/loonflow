@@ -1,22 +1,22 @@
 import { IField } from '@loonflow/schema';
 import { Box, SxProps } from '@mui/system';
+import { observer } from 'mobx-react';
 import { FC, ReactNode } from 'react';
-import { useSnapshot } from 'valtio';
-import { setActiveField, store } from '../store';
+import { setActiveId, store } from '../store';
 
 const FieldWrapper: FC<{
   children?: ReactNode;
   sx?: SxProps;
-  field?: IField;
+  field: IField;
   hideBackdrop?: boolean;
 }> = ({ children, sx, field, hideBackdrop }) => {
-  const snap = useSnapshot(store);
-  const active = snap.activeFieldId === field?.__id__;
+  const active = store.activeFieldId === field?.__id__;
   return (
     <Box
       onClick={(ev) => {
         ev.preventDefault();
-        setActiveField(field?.__id__);
+        ev.stopPropagation();
+        setActiveId(field.__id__);
       }}
       sx={{
         padding: '8px',
@@ -42,4 +42,4 @@ const FieldWrapper: FC<{
   );
 };
 
-export default FieldWrapper;
+export default observer(FieldWrapper);
