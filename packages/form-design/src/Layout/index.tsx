@@ -5,6 +5,7 @@ import Empty from './Empty';
 import { RenderField, RenderPlaceholder } from './render';
 import DropContainer from './DropContainer';
 import { observer } from 'mobx-react';
+import { removePlaceholderEle } from '../hooks/useNestedDrop';
 
 const Layout = () => {
   return (
@@ -28,7 +29,7 @@ const Layout = () => {
           addOrMoveField(store.fields, item, nextId);
         }}
         onLeave={() => {
-          // console.log('leave drop');
+          removePlaceholderEle();
         }}
       />
     </Box>

@@ -80,6 +80,7 @@ const useNestedDrop = ({
               target = target.nextElementSibling as HTMLElement;
             }
           }
+          console.log('ref', level, ref.current, target, placeholderElm);
           ref.current?.insertBefore(placeholderElm, target ?? null);
         },
         drop(item, monitor) {
@@ -113,4 +114,10 @@ const useNestedDrop = ({
   } as const;
 };
 
+export const removePlaceholderEle = () => {
+  if (placeholderElm) {
+    placeholderElm.remove();
+    placeholderElm = null;
+  }
+};
 export default useNestedDrop;

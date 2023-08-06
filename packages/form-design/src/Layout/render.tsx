@@ -44,13 +44,15 @@ export const RenderColField: FC<{
       }}
     >
       <DropContainer
+        sx={{
+          minHeight: 50,
+        }}
         level="column"
         accept={DnDTypes.box}
         fields={field.children}
         renderField={(field) => <RenderField field={field} />}
         renderPlaceholder={(field) => <RenderPlaceholder field={field} />}
         onDrop={(item, nextId) => {
-          // console.log()
           addOrMoveField(field.children!, item, nextId);
         }}
       />

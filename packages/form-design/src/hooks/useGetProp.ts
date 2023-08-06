@@ -8,14 +8,16 @@ export const useLabel = (field: IField) => {
     const labelProp = field.props?.find(
       (prop) => prop.type === FieldProp.title
     );
-    setLabel(labelProp?.value);
-    const dispose = observe(labelProp!, (ev) => {
-      // @ts-ignore
-      setLabel(ev.newValue);
-    });
-    return () => {
-      dispose();
-    };
+    if (labelProp) {
+      setLabel(labelProp.value);
+      const dispose = observe(labelProp, (ev) => {
+        // @ts-ignore
+        setLabel(ev.newValue);
+      });
+      return () => {
+        dispose();
+      };
+    }
   }, [field]);
   return label;
 };
