@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@loonflow/common-tools": ["packages/common-tools/src/index.ts"],
+      "@loonflow/components": ["packages/components/src/index.ts"],
       "@loonflow/field-props": ["packages/field-props/src/index.ts"],
       "@loonflow/form-design": ["packages/form-design/src/index.ts"],
       "@loonflow/icon": ["packages/icon/src/index.ts"],

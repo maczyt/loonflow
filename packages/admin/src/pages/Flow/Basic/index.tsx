@@ -1,7 +1,18 @@
 import { Box } from '@mui/system';
-import { Form, Input } from 'antd';
+import { Form, Input, FormListFieldData } from 'antd';
+import { observer } from 'mobx-react';
+import { RichTextEditor } from 'packages/components/src';
+import { useEffect } from 'react';
+import { store } from '../store';
 
 const Basic = () => {
+  const [form] = Form.useForm();
+  useEffect(() => {
+    form.setFieldsValue({
+      name: store.name,
+      description: store.description,
+    });
+  }, []);
   return (
     <Box
       sx={{
@@ -12,7 +23,17 @@ const Basic = () => {
         padding: '40px 100px 0',
       }}
     >
-      <Form autoComplete="off">
+      <Form
+        autoComplete="off"
+        labelCol={{ span: 4 }}
+        form={form}
+        onFieldsChange={(fields) => {
+          fields.forEach((field) => {
+            // @ts-ignore
+            store.formChange(field.name?.[0], field.value);
+          });
+        }}
+      >
         <Form.Item
           label="类型名称"
           name="name"
@@ -20,9 +41,17 @@ const Basic = () => {
         >
           <Input placeholder="请输入工作流的类型名称，例如请假申请" />
         </Form.Item>
+        <Form.Item label="引导说明" name="description">
+          <RichTextEditor
+            placeholder="新建工单时会显示引导"
+            style={{
+              height: 100,
+            }}
+          />
+        </Form.Item>
       </Form>
     </Box>
   );
 };
 
-export default Basic;
+export default observer(Basic);

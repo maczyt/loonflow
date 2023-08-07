@@ -1,7 +1,6 @@
 import { Field, generateNewField, IField } from '@loonflow/schema';
 import { configure, makeAutoObservable, toJS } from 'mobx';
 import { DragItem } from '../types';
-import { injectStores } from '@mobx-devtools/tools';
 
 configure({
   enforceActions: 'never',
@@ -35,13 +34,13 @@ class DesignStore {
   get isEmpty() {
     return this.fields.length === 0;
   }
+
+  get fieldsData() {
+    return toJS(this.fields);
+  }
 }
 
 export const store = new DesignStore();
-
-injectStores({
-  store,
-});
 
 export const setActiveId = (id: string) => {
   store.activeFieldId = id;
