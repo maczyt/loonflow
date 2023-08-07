@@ -48,6 +48,7 @@ specifiers:
   qs: ^6.11.2
   react: 18.2.0
   react-dom: 18.2.0
+  react-if: ^4.1.5
   react-router-dom: 6.11.2
   slate-react: ^0.98.1
   styled-jsx: 5.1.2
@@ -75,6 +76,7 @@ dependencies:
   qs: 6.11.2
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-if: 4.1.5_react@18.2.0
   react-router-dom: 6.11.2_biqbaboplfbrettd7655fr4n2y
   slate-react: 0.98.1_rehni4dfsz7b477gynmqnob23i
   styled-jsx: 5.1.2_54vsopisd4sxme2ltbo2mwp3ci
@@ -8576,6 +8578,15 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+
+  /react-if/4.1.5_react@18.2.0:
+    resolution: {integrity: sha512-Uk+Ub2gC83PAakuU4+7iLdTEP4LPi2ihNEPCtz/vr8SLGbzkMApbpYbkDZ5z9zYXurd0gg+EK/bpOLFFC1r1eQ==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}

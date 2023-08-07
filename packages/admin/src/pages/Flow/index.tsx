@@ -6,9 +6,6 @@ import { match } from 'path-to-regexp';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 const Flow = () => {
-  const params = useParams();
-  //   check is create or edit
-  //   console.log('params', params.flowId);
   const location = useLocation();
   const key = useMemo(() => {
     const matchObj = match('/flow/:flowId?/:tabKey')(location.pathname);

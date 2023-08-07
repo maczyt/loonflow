@@ -1,6 +1,7 @@
 import { FlowTabKeys } from '@loonflow/schema';
 import { createBrowserRouter } from 'react-router-dom';
 import Flow from '../pages/Flow';
+import { route as AdvanceRoute } from '../pages/Flow/Advance';
 import Basic from '../pages/Flow/Basic';
 import Form from '../pages/Flow/Form';
 
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
       },
       {
         path: FlowTabKeys.advance,
-        element: <div>高级</div>,
+        ...AdvanceRoute,
       },
     ],
   },

@@ -1,4 +1,4 @@
-import { Field, generateNewField, IField } from '@loonflow/schema';
+import { Field, FieldProp, generateNewField, IField } from '@loonflow/schema';
 import { configure, makeAutoObservable, toJS } from 'mobx';
 import { DragItem } from '../types';
 
@@ -37,6 +37,18 @@ class DesignStore {
 
   get fieldsData() {
     return toJS(this.fields);
+  }
+
+  get fieldsOptions() {
+    return this.fields.map((field) => {
+      const label = field.props?.find(
+        (prop) => prop.type === FieldProp.title
+      )?.value;
+      return {
+        label: label ?? field.__id__,
+        value: field.__id__,
+      };
+    });
   }
 }
 
