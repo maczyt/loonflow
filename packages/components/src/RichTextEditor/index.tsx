@@ -7,12 +7,14 @@ interface IProps {
   onChange?: (val?: string) => void;
   style?: CSSProperties;
   placeholder?: string;
+  className?: string;
 }
 const RichTextEditor: FC<IProps> = ({
   value,
   onChange,
   style,
   placeholder,
+  className,
 }) => {
   const { quill, quillRef } = useQuill({
     placeholder,
@@ -42,7 +44,7 @@ const RichTextEditor: FC<IProps> = ({
     };
   }, [getHtml, onChange, quill]);
   return (
-    <div style={style}>
+    <div style={style} className={className}>
       <div ref={quillRef} />
     </div>
   );

@@ -3,8 +3,7 @@ import { injectStores } from '@mobx-devtools/tools';
 
 class FlowStore {
   name = '';
-  description =
-    '<p>asdadasd</p><p>sdfjshkfjshdf</p><p><br></p><p>sdjkfhkjsdfh</p><p><br></p>';
+  description = '';
   constructor() {
     makeAutoObservable(this);
   }

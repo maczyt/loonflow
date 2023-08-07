@@ -1,9 +1,10 @@
 import { Box } from '@mui/system';
-import { Form, Input, FormListFieldData } from 'antd';
+import { Form, Input, Divider, Checkbox } from 'antd';
 import { observer } from 'mobx-react';
 import { RichTextEditor } from 'packages/components/src';
 import { useEffect } from 'react';
 import { store } from '../store';
+import s from './index.module.css';
 
 const Basic = () => {
   const [form] = Form.useForm();
@@ -19,8 +20,9 @@ const Basic = () => {
         width: '800px',
         margin: '18px auto 0',
         background: '#fff',
-        height: '100%',
+        height: 'calc(100% - 18px)',
         padding: '40px 100px 0',
+        overflow: 'auto',
       }}
     >
       <Form
@@ -44,10 +46,18 @@ const Basic = () => {
         <Form.Item label="引导说明" name="description">
           <RichTextEditor
             placeholder="新建工单时会显示引导"
-            style={{
-              height: 100,
-            }}
+            className={s.editorContainer}
           />
+        </Form.Item>
+        <Divider />
+        <Form.Item
+          extra="工单状态变更时会自动发送消息提醒待办人。可在高级设置里自定义。"
+          style={{ marginBottom: 0 }}
+        >
+          <Checkbox>开启消息通知</Checkbox>
+        </Form.Item>
+        <Form.Item>
+          <Checkbox>在待办列表显示</Checkbox>
         </Form.Item>
       </Form>
     </Box>
