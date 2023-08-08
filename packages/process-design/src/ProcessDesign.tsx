@@ -8,6 +8,7 @@ import { Button, Divider, message, Tooltip } from 'antd';
 import { VALUE_BACK_SPACE } from 'keycode-js';
 import { setLoginFlow } from './store';
 import useToolbars from './hooks/useToolbars';
+import useEvents from './hooks/useEvents';
 LogicFlow.use(DndPanel);
 LogicFlow.use(SelectionSelect);
 
@@ -27,12 +28,14 @@ export const ProcessDesign = () => {
         backgroundColor: '#F7F8FA',
       },
       stopMoveGraph: true,
+      edgeType: 'bezier',
     });
     lf.render();
     setLoginFlow(lf);
     setLf(lf);
   }, []);
   const { toolbarConfig } = useToolbars(lf);
+  useEvents(lf);
 
   return (
     <Box
