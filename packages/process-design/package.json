@@ -8,5 +8,9 @@
       "import": "./index.mjs",
       "require": "./index.js"
     }
+  },
+  "dependencies": {
+    "@logicflow/core": "^1.2.10",
+    "@logicflow/extension": "^1.2.10"
   }
 }

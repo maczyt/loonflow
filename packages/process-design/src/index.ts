@@ -1,1 +1,1 @@
-export * from './lib/process-design';
+export * from './ProcessDesign';
