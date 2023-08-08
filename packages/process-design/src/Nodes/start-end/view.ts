@@ -1,3 +1,3 @@
-import { RectNode } from '@logicflow/core';
+import { CircleNode } from '@logicflow/core';
 
-export default class View extends RectNode {}
+export default class View extends CircleNode {}

@@ -88,6 +88,7 @@ const Advance = () => {
       <Box
         sx={{
           padding: '16px 24px',
+          flex: 1,
         }}
       >
         <Switch>

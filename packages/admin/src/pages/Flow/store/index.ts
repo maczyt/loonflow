@@ -1,5 +1,4 @@
 import { makeAutoObservable } from 'mobx';
-import { injectStores } from '@mobx-devtools/tools';
 
 class FlowStore {
   name = '';
@@ -17,7 +16,3 @@ class FlowStore {
   }
 }
 export const store = new FlowStore();
-
-injectStores({
-  flowStore: store,
-});

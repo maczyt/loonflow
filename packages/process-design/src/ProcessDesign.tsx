@@ -1,61 +1,39 @@
 import { Box } from '@mui/system';
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import LogicFlow from '@logicflow/core';
-import { DndPanel } from '@logicflow/extension';
+import { DndPanel, SelectionSelect } from '@logicflow/extension';
 import '@logicflow/core/dist/style/index.css';
-import { registerNodes } from './Nodes';
-import { Button, Divider } from 'antd';
-import { IToolbarConfig } from './types';
-import { IconRedo, IconStartNode, IconUndo } from '@loonflow/icon';
-import { NodeType } from '@loonflow/schema';
+import { Button, Divider, message, Tooltip } from 'antd';
+
+import { VALUE_BACK_SPACE } from 'keycode-js';
+import { setLoginFlow } from './store';
+import useToolbars from './hooks/useToolbars';
 LogicFlow.use(DndPanel);
+LogicFlow.use(SelectionSelect);
+
+message.config({
+  maxCount: 1,
+});
 
 export const ProcessDesign = () => {
-  const lfRef = useRef<LogicFlow | null>(null);
+  const [lf, setLf] = useState<LogicFlow | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const toolbarConfig: Array<IToolbarConfig[]> = [
-    [
-      {
-        title: 'undo',
-        icon: <IconUndo />,
-        onClick() {
-          lfRef.current?.undo();
-        },
-      },
-      {
-        title: 'redo',
-        icon: <IconRedo />,
-        onClick() {
-          lfRef.current?.redo();
-        },
-      },
-    ],
-    [
-      {
-        title: '开始节点',
-        label: '开始节点',
-        icon: <IconStartNode />,
-        onMouseDown() {
-          console.log(lfRef.current?.dnd);
-          lfRef.current?.dnd.startDrag({
-            type: NodeType.startEnd,
-            text: `开始节点`,
-          });
-        },
-      },
-    ],
-  ];
+
   useEffect(() => {
-    const lf = (lfRef.current = new LogicFlow({
+    const lf = new LogicFlow({
       container: containerRef.current!,
       grid: true,
       background: {
         backgroundColor: '#F7F8FA',
       },
-    }));
-    registerNodes(lf);
+      stopMoveGraph: true,
+    });
     lf.render();
+    setLoginFlow(lf);
+    setLf(lf);
   }, []);
+  const { toolbarConfig } = useToolbars(lf);
+
   return (
     <Box
       sx={{
@@ -115,11 +93,13 @@ export const ProcessDesign = () => {
                 }}
               >
                 {items.map(({ icon, label, title, ...rest }, ind) => (
-                  <Box key={ind} {...rest}>
-                    <Button icon={icon} type="text">
-                      {label}
-                    </Button>
-                  </Box>
+                  <Tooltip key={ind} title={title} placement="top">
+                    <Box {...rest}>
+                      <Button icon={icon} type="text">
+                        {label}
+                      </Button>
+                    </Box>
+                  </Tooltip>
                 ))}
               </Box>
             </Fragment>

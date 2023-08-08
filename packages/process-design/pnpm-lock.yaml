@@ -3,10 +3,12 @@ lockfileVersion: 5.4
 specifiers:
   '@logicflow/core': ^1.2.10
   '@logicflow/extension': ^1.2.10
+  keycode-js: ^3.1.0
 
 dependencies:
   '@logicflow/core': 1.2.10
   '@logicflow/extension': 1.2.10
+  keycode-js: 3.1.0
 
 packages:
 
@@ -1978,6 +1980,10 @@ packages:
     resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
+    dev: false
+
+  /keycode-js/3.1.0:
+    resolution: {integrity: sha512-aAa8PVW7kBDyG14ifGOseaVBjsT1LI953060yRSzzf3G0beKKEuwHVvFGcCI+AofY68NUkPxbLqrkfWPjXySCw==}
     dev: false
 
   /kleur/3.0.3:

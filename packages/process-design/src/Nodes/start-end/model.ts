@@ -1,3 +1,3 @@
-import { RectNodeModel } from '@logicflow/core';
+import { CircleNodeModel } from '@logicflow/core';
 
-export default class Model extends RectNodeModel {}
+export default class Model extends CircleNodeModel {}
