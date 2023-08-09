@@ -15,7 +15,10 @@ const useEvents = (lf: LogicFlow | null) => {
       lf.setProperties(data.id, {
         active: true,
       });
-      ProcessDesignStore.activeNodeId = data.id;
+      ProcessDesignStore.assign({
+        activeNodeId: data.id,
+        settingOpen: true,
+      });
     };
     lf.on('node:mousedown', handleMouseDown);
 

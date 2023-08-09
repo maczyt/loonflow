@@ -15,8 +15,13 @@ configure({
 
 class ProcessStore {
   activeNodeId = '';
+  settingOpen = false;
   constructor() {
     makeAutoObservable(this);
+  }
+
+  assign<T extends keyof ProcessStore>(value: Record<T, ProcessStore[T]>) {
+    Object.assign(this, value);
   }
 }
 

@@ -9,6 +9,7 @@ import { VALUE_BACK_SPACE } from 'keycode-js';
 import { setLoginFlow } from './store';
 import useToolbars from './hooks/useToolbars';
 import useEvents from './hooks/useEvents';
+import SettingDrawer from './components/SettingDrawer';
 LogicFlow.use(DndPanel);
 LogicFlow.use(SelectionSelect);
 
@@ -115,6 +116,8 @@ export const ProcessDesign = () => {
           flex: 1,
         }}
       ></Box>
+
+      <SettingDrawer />
     </Box>
   );
 };
