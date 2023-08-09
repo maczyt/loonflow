@@ -1,8 +1,9 @@
 import { IField } from '@loonflow/schema';
 import { Box } from '@mui/system';
-import { FC, ReactNode, useRef } from 'react';
+import { FC, ReactNode, useEffect, useRef } from 'react';
 import { useDrag } from 'react-dnd';
 import { DragItem } from '../types';
+import { unsetDragItemStyle } from '../utils';
 
 interface IOpt {
   isDragging: boolean;
@@ -32,6 +33,17 @@ const DragContainer: FC<IProps> = ({ dragType, field, children }) => {
     };
   }, [field]);
   drag(ref);
+
+  useEffect(() => {
+    if (!isDragging) {
+      try {
+        const elm = ref.current?.closest('[data-drop-item-id]') as HTMLElement;
+        unsetDragItemStyle(elm);
+      } catch (e) {
+        //
+      }
+    }
+  }, [isDragging]);
   return <Box ref={ref}>{children?.({ isDragging })}</Box>;
 };
 

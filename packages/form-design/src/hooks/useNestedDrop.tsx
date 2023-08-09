@@ -3,6 +3,7 @@ import { ReactNode, useRef } from 'react';
 import { useDrop, XYCoord } from 'react-dnd';
 import { render } from 'react-dom';
 import { DragItem } from '../types';
+import { setDragItemStyle } from '../utils';
 
 let placeholderElm: HTMLElement | null = null;
 
@@ -20,9 +21,13 @@ const useNestedDrop = ({
   const ref = useRef<HTMLDivElement>(null);
   const getDragMoveElement = (field?: IField) => {
     if (field) {
-      return document.querySelector(
+      const sourceElm = document.querySelector(
         `[data-drop-item-id='${field.__id__}']`
       ) as HTMLElement;
+      if (!sourceElm) return null;
+      const elm = sourceElm.cloneNode(true) as HTMLElement;
+      setDragItemStyle(sourceElm);
+      return elm;
     } else {
       const node = renderPlaceholder?.();
       if (node) {
@@ -35,9 +40,11 @@ const useNestedDrop = ({
   };
   const clearPlaceholderElm = (field?: IField) => {
     if (!placeholderElm) return;
-    if (!field) {
-      placeholderElm?.remove();
-    }
+    placeholderElm?.remove();
+
+    // if (!field) {
+    //   placeholderElm?.remove();
+    // }
     placeholderElm = null;
   };
 
