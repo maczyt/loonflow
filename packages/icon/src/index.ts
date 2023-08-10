@@ -11,6 +11,7 @@ import { ReactComponent as IconStartNode } from './StartNode.svg';
 import { ReactComponent as IconEndNode } from './EndNode.svg';
 import { ReactComponent as IconRect } from './Rect.svg';
 import { ReactComponent as IconDiamond } from './Diamond.svg';
+import { ReactComponent as IconLogo } from './Logo.svg';
 
 export {
   IconSingleText,
@@ -25,4 +26,5 @@ export {
   IconRect,
   IconDiamond,
   IconSelection,
+  IconLogo,
 };
