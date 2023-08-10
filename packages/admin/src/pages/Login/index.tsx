@@ -50,7 +50,6 @@ const Login = () => {
           title="Loonflow"
           subTitle="致力于为企业提供统一的工作流解决方案"
           onFinish={async (formData) => {
-            console.log('sdfjkhskjfhskjfh', formData);
             await new Promise((resolve) => setTimeout(resolve, 1000));
           }}
         >
