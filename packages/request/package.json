@@ -1,0 +1,8 @@
+{
+  "name": "@loonflow/request",
+  "version": "0.0.1",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.4.0"
+  }
+}

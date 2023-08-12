@@ -22,6 +22,7 @@
       "@loonflow/icon": ["packages/icon/src/index.ts"],
       "@loonflow/process-design": ["packages/process-design/src/index.ts"],
       "@loonflow/render-ui": ["packages/render-ui/src/index.ts"],
+      "@loonflow/request": ["packages/request/src/index.ts"],
       "@loonflow/schema": ["packages/schema/src/index.ts"]
     }
   },
