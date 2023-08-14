@@ -6,7 +6,10 @@ export interface RequestOptions {
   baseURL?: string;
 }
 
-type Config<T = any> = AxiosRequestConfig<T>;
+type Config<T = any> = AxiosRequestConfig<T> & {
+  /** 自定义错误处理 */
+  customErrorHandle?: boolean;
+};
 
 export class Request {
   private instance: AxiosInstance;

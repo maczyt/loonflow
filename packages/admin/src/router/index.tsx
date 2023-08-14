@@ -62,6 +62,13 @@ export const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+    loader: async (...args) => {
+      console.log('args', args);
+      return [1, 2, 3];
+    },
+    action: async (...args) => {
+      console.log('action', args);
+    },
   },
   {
     path: '/flow/:flowId?',

@@ -4,16 +4,22 @@ import {
   ProFormCheckbox,
   ProFormText,
 } from '@ant-design/pro-components';
+import { awaitHandler } from '@loonflow/common-tools';
 import { BackgroundCanvas } from '@loonflow/components';
 import { IconLogo } from '@loonflow/icon';
 import { Box } from '@mui/system';
 import { Tabs } from 'antd';
 import { useState } from 'react';
+import { useActionData } from 'react-router-dom';
+import { useLogin } from '../../api/hooks';
 import s from './index.module.css';
 
 type LoginType = 'phone' | 'account';
 const Login = () => {
+  const actionData = useActionData();
+  console.log('sdfjksdhfkjdshf', actionData);
   const [loginType, setLoginType] = useState<LoginType>('account');
+  const { loginRequest } = useLogin();
   return (
     <Box
       sx={{
@@ -49,8 +55,11 @@ const Login = () => {
           }
           title="Loonflow"
           subTitle="致力于为企业提供统一的工作流解决方案"
-          onFinish={async (formData) => {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+          onFinish={async ({ username, password }) => {
+            const [err, resp] = await awaitHandler(
+              loginRequest(username, password)
+            );
+            console.log('resp', resp, err);
           }}
         >
           <Tabs
@@ -69,7 +78,7 @@ const Login = () => {
                   size: 'large',
                   prefix: <UserOutlined className={'prefixIcon'} />,
                 }}
-                placeholder={'用户名: admin or user'}
+                placeholder="用户名"
                 rules={[
                   {
                     required: true,
@@ -83,7 +92,7 @@ const Login = () => {
                   size: 'large',
                   prefix: <LockOutlined className={'prefixIcon'} />,
                 }}
-                placeholder={'密码: ant.design'}
+                placeholder="密码"
                 rules={[
                   {
                     required: true,
