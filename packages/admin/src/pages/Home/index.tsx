@@ -1,6 +1,6 @@
-import { Breadcrumb, Layout, Menu, MenuProps } from 'antd';
-import { DesktopOutlined } from '@ant-design/icons';
-import { useMemo, useState } from 'react';
+import { Avatar, Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
+import { DesktopOutlined, UserOutlined } from '@ant-design/icons';
+import { useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/system';
 import { IconLogo } from '@loonflow/icon';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
@@ -54,11 +54,14 @@ const items: MenuItem[] = [
 ];
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
   const location = useLocation();
-  const [selectedKeys, openKeys] = useMemo(() => {
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
+  const [selectedKeys, _openKeys] = useMemo(() => {
     const { pathname } = location;
     const keys = pathname.slice(1).split('/').filter(Boolean);
-    console.log('dasda', keys);
     if (keys.length === 0) {
       return [['workspace'], []];
     }
@@ -66,64 +69,99 @@ const Home = () => {
   }, [location]);
 
   const navigate = useNavigate();
-  console.log('location', selectedKeys, openKeys);
+
+  useEffect(() => {
+    setOpenKeys(_openKeys);
+  }, [_openKeys]);
+  console.log('sdfsdfs', colorBgContainer);
   return (
     <Layout style={{ height: '100vh' }}>
-      <Sider
-        collapsible
-        collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
+      <Header
+        style={{
+          padding: 0,
+          background: '#fff',
+          position: 'relative',
+          zIndex: 10,
+          boxShadow:
+            '0 1px 2px 0 rgba(0, 0, 0, 0.03), 0 1px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px 0 rgba(0, 0, 0, 0.02)',
+        }}
       >
         <Box
           sx={{
-            fontSize: '32px',
-            color: '#fff',
-            height: '64px',
             display: 'flex',
+            justifyContent: 'space-between',
             alignItems: 'center',
-            userSelect: 'none',
-            padding: '0 4px',
-            justifyContent: 'center',
+            height: '100%',
           }}
         >
-          <IconLogo
-            style={{
-              fontSize: '40px',
+          <Box
+            sx={{
+              fontSize: '32px',
+              height: '100%',
+              display: 'flex',
+              userSelect: 'none',
+              padding: '0 4px',
+              alignItems: 'center',
             }}
-          />
-          {collapsed ? '' : 'Loonflow'}
+          >
+            <IconLogo
+              style={{
+                fontSize: '40px',
+              }}
+            />
+            Loonflow
+          </Box>
+          <Avatar shape="square" icon={<UserOutlined />} />
         </Box>
-        <Menu
-          theme="dark"
-          mode="inline"
-          items={items}
-          selectedKeys={selectedKeys}
-          defaultOpenKeys={openKeys}
-          onClick={({ item, key, keyPath, domEvent }) => {
-            if (key === 'workspace') {
-              navigate('/', {
+      </Header>
+      <Layout>
+        <Sider
+          collapsible
+          collapsed={collapsed}
+          onCollapse={(value) => setCollapsed(value)}
+          theme="light"
+          style={{
+            background: colorBgContainer,
+          }}
+        >
+          <Menu
+            style={{
+              height: '100%',
+              borderRight: 0,
+            }}
+            mode="inline"
+            items={items}
+            selectedKeys={selectedKeys}
+            openKeys={openKeys}
+            onOpenChange={(openKeys) => {
+              setOpenKeys(openKeys);
+            }}
+            onClick={({ key, keyPath }) => {
+              if (key === 'workspace') {
+                navigate('/', {
+                  replace: true,
+                });
+                return;
+              }
+              navigate(`/${keyPath.reverse().join('/')}`, {
                 replace: true,
               });
-              return;
-            }
-            navigate(`/${keyPath.reverse().join('/')}`, {
-              replace: true,
-            });
+            }}
+          />
+        </Sider>
+        <Layout
+          style={{
+            background: '#f5f5f5',
+            padding: '16px',
+            paddingBottom: '24px',
           }}
-        />
-      </Sider>
-      <Layout>
-        <Header style={{ padding: 0 }} />
-        <Content style={{ margin: '0 16px' }}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <Outlet />
-        </Content>
-        <Footer style={{ textAlign: 'center' }}>
-          Ant Design ©2023 Created by Ant UED
-        </Footer>
+        >
+          <Content
+            style={{ background: colorBgContainer, borderRadius: '4px' }}
+          >
+            <Outlet />
+          </Content>
+        </Layout>
       </Layout>
     </Layout>
   );
