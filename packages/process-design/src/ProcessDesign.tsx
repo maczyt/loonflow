@@ -1,8 +1,9 @@
 import { Box } from '@mui/system';
 import { Fragment, useEffect, useRef, useState } from 'react';
 import LogicFlow from '@logicflow/core';
-import { DndPanel, SelectionSelect } from '@logicflow/extension';
+import { DndPanel, SelectionSelect, MiniMap } from '@logicflow/extension';
 import '@logicflow/core/dist/style/index.css';
+import '@logicflow/extension/lib/style/index.css';
 import { Button, Divider, message, Tooltip } from 'antd';
 
 import { VALUE_BACK_SPACE } from 'keycode-js';
@@ -12,6 +13,7 @@ import useEvents from './hooks/useEvents';
 import SettingDrawer from './components/SettingDrawer';
 LogicFlow.use(DndPanel);
 LogicFlow.use(SelectionSelect);
+LogicFlow.use(MiniMap);
 
 message.config({
   maxCount: 1,
@@ -32,6 +34,9 @@ export const ProcessDesign = () => {
       edgeType: 'bezier',
     });
     lf.render();
+    lf.extension.miniMap.isShowHeader = false;
+    lf.extension.miniMap.isShowCloseIcon = false;
+    lf.extension.miniMap.show(window.innerWidth - 156);
     setLoginFlow(lf);
     setLf(lf);
   }, []);

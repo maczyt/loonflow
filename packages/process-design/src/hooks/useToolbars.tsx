@@ -40,7 +40,6 @@ const useToolbars = (lf: LogicFlow | null) => {
                 label: '开始节点',
                 icon: <IconStartNode />,
                 onMouseDown() {
-                  console.log(lf);
                   if (!lf) return;
                   // max limit 1 start node
                   if (hasStartNode(lf)) {
