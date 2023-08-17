@@ -7,7 +7,6 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "i18n-ally.localesPaths": [
-        "packages/locales",
         "packages/locales/src"
     ],
     "i18n-ally.keystyle": "flat",

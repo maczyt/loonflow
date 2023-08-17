@@ -9,8 +9,7 @@ import { t } from 'i18next';
 
 const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
-
-const items: MenuItem[] = [
+const getItems: () => MenuItem[] = () => [
   {
     label: t('gong-zuo-tai'),
     icon: <DesktopOutlined />,
@@ -22,37 +21,38 @@ const items: MenuItem[] = [
     key: 'workorder',
     children: [
       {
-        label: '我的待办',
+        label: t('wo-de-dai-ban'),
         key: 'todo',
       },
     ],
   },
   {
-    label: '工作流管理',
+    label: t('gong-zuo-liu-guan-li'),
     icon: <DesktopOutlined />,
     key: 'workflow',
   },
   {
-    label: '组织架构',
+    label: t('zu-zhi-jia-gou'),
     icon: <DesktopOutlined />,
     key: 'organize',
     children: [
       {
-        label: '部门/成员',
+        label: t('bu-men-cheng-yuan'),
         key: 'manage',
       },
       {
-        label: '角色管理',
+        label: t('jiao-se-guan-li'),
         key: 'role',
       },
     ],
   },
   {
-    label: '系统配置',
+    label: t('xi-tong-pei-zhi'),
     icon: <DesktopOutlined />,
     key: 'system',
   },
 ];
+
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
@@ -130,7 +130,7 @@ const Home = () => {
               borderRight: 0,
             }}
             mode="inline"
-            items={items}
+            items={getItems()}
             selectedKeys={selectedKeys}
             openKeys={openKeys}
             onOpenChange={(openKeys) => {

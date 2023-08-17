@@ -1,4 +1,10 @@
 {
   "gong-zuo-tai": "workbench",
-  "gong-dan-guan-li": "Work order management"
+  "gong-dan-guan-li": "work order management",
+  "wo-de-dai-ban": "my to do",
+  "gong-zuo-liu-guan-li": "workflow management",
+  "zu-zhi-jia-gou": "organization",
+  "bu-men-cheng-yuan": "Department/Member",
+  "jiao-se-guan-li": "role management",
+  "xi-tong-pei-zhi": "System Configuration"
 }
