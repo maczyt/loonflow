@@ -1,0 +1,26 @@
+{
+  "name": "locales",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/locales/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/locales",
+        "main": "packages/locales/src/index.ts",
+        "tsConfig": "packages/locales/tsconfig.lib.json",
+        "assets": []
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/locales/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}

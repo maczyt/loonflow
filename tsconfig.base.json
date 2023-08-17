@@ -13,6 +13,7 @@
     "lib": ["es2020", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@loonflow/common-tools": ["packages/common-tools/src/index.ts"],
@@ -20,6 +21,7 @@
       "@loonflow/field-props": ["packages/field-props/src/index.ts"],
       "@loonflow/form-design": ["packages/form-design/src/index.ts"],
       "@loonflow/icon": ["packages/icon/src/index.ts"],
+      "@loonflow/locales": ["packages/locales/src/index.ts"],
       "@loonflow/process-design": ["packages/process-design/src/index.ts"],
       "@loonflow/render-ui": ["packages/render-ui/src/index.ts"],
       "@loonflow/request": ["packages/request/src/index.ts"],

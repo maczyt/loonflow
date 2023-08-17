@@ -1,22 +1,23 @@
-import { Avatar, Breadcrumb, Layout, Menu, MenuProps, theme } from 'antd';
+import { Avatar, Layout, Menu, MenuProps, theme } from 'antd';
 import { DesktopOutlined, UserOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/system';
 import { IconLogo } from '@loonflow/icon';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { takeRight, dropRight } from 'lodash-es';
+import { t } from 'i18next';
 
 const { Header, Content, Footer, Sider } = Layout;
 type MenuItem = Required<MenuProps>['items'][number];
 
 const items: MenuItem[] = [
   {
-    label: '工作台',
+    label: t('gong-zuo-tai'),
     icon: <DesktopOutlined />,
     key: 'workspace',
   },
   {
-    label: '工单管理',
+    label: t('gong-dan-guan-li'),
     icon: <DesktopOutlined />,
     key: 'workorder',
     children: [
@@ -73,7 +74,6 @@ const Home = () => {
   useEffect(() => {
     setOpenKeys(_openKeys);
   }, [_openKeys]);
-  console.log('sdfsdfs', colorBgContainer);
   return (
     <Layout style={{ height: '100vh' }}>
       <Header
