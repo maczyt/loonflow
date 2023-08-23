@@ -23,7 +23,6 @@ const Flow = () => {
       });
     }
   }, [key, navigate]);
-
   return (
     <Box
       sx={{
@@ -72,7 +71,13 @@ const Flow = () => {
             gap: '16px',
           }}
         >
-          <Button>取消</Button>
+          <Button
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            取消
+          </Button>
           <Button
             type="primary"
             onClick={() => {
