@@ -6,5 +6,7 @@
   "zu-zhi-jia-gou": "organization",
   "bu-men-cheng-yuan": "Department/Member",
   "jiao-se-guan-li": "role management",
-  "xi-tong-pei-zhi": "System Configuration"
+  "xi-tong-pei-zhi": "System Configuration",
+  "cheng-yuan": "member",
+  "bu-men": "department"
 }

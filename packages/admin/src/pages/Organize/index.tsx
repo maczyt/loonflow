@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 const Organize = () => {
   return (
     <Box>
-      组织管理 <Outlet />
+      <Outlet />
     </Box>
   );
 };
