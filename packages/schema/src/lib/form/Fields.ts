@@ -3,8 +3,8 @@ import { FieldProp } from './Props';
 import { Register } from '@loonflow/common-tools';
 import { uid } from 'uid';
 
-const generateFieldId = () => `field-${uid()}`;
-const generateFieldKey = (prefix: string) => `${prefix}-${uid()}`;
+export const generateFieldId = () => `field-${uid()}`;
+export const generateFieldKey = (prefix: string) => `${prefix}-${uid()}`;
 
 export const fieldGeneratorFactory = new Register<Field, () => IField>();
 fieldGeneratorFactory.set(Field.input, () => ({

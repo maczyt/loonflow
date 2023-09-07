@@ -15,7 +15,7 @@ const DropItem: FC<{
   return (
     <Box
       sx={{
-        paddingBottom: '8px',
+        paddingBottom: '12px',
       }}
       data-drop-item
       data-drop-item-id={id}

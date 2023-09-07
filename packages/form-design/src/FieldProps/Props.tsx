@@ -6,11 +6,11 @@ import {
 import { Box } from '@mui/system';
 import { Form, Tabs, Typography } from 'antd';
 import { observer } from 'mobx-react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { store } from '../store';
 import PropSetting from './Prop';
 
-const Props = () => {
+const Props: React.FC = () => {
   const [tabKey, setTabKey] = useState('basic');
   const basicFieldProps = store.activeField?.props?.filter((prop) =>
     BasicFieldProps.includes(prop.type)

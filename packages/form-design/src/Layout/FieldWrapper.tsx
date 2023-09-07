@@ -3,6 +3,7 @@ import { Box, SxProps } from '@mui/system';
 import { observer } from 'mobx-react';
 import { FC, ReactNode } from 'react';
 import { setActiveId, store } from '../store';
+import FieldOperators from '../FieldOperators/Container';
 
 const FieldWrapper: FC<{
   children?: ReactNode;
@@ -19,10 +20,13 @@ const FieldWrapper: FC<{
         setActiveId(field.__id__);
       }}
       sx={{
-        padding: '8px',
+        padding: '10px',
         outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
         position: 'relative',
         cursor: 'pointer',
+        '.ant-form-item': {
+          marginBottom: 0,
+        },
         ...sx,
       }}
     >
@@ -38,6 +42,17 @@ const FieldWrapper: FC<{
           }}
         />
       )}
+      {active ? (
+        <Box
+          sx={{
+            marginTop: '8px',
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}
+        >
+          <FieldOperators field={field} />
+        </Box>
+      ) : null}
     </Box>
   );
 };

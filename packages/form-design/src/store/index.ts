@@ -1,4 +1,11 @@
-import { Field, FieldProp, generateNewField, IField } from '@loonflow/schema';
+import {
+  Field,
+  FieldProp,
+  generateFieldId,
+  generateFieldKey,
+  generateNewField,
+  IField,
+} from '@loonflow/schema';
 import { configure, makeAutoObservable, toJS } from 'mobx';
 import { DragItem } from '../types';
 
@@ -105,4 +112,46 @@ export const addOrMoveField = (
     const index = findFieldIndexInFieldsById(nextId, fields);
     addNewField(item.type, index, fields);
   }
+};
+/**
+ * 获取field所在的列表
+ * @param field
+ * @returns
+ */
+export const getFieldAtFields = (field: IField) => {
+  let targetFields: IField[] = [];
+  const find = (fields: IField[]) => {
+    const index = fields.findIndex((f) => f.__id__ === field.__id__);
+    if (index > -1) {
+      targetFields = fields;
+      return;
+    }
+    fields.forEach((f) => {
+      if (f.children && f.children.length > 0) {
+        find(f.children);
+      }
+    });
+  };
+  find(store.fields);
+  return targetFields;
+};
+
+const _copyField = (field: IField) => {
+  // TODO: 增强属性配置
+  const copy = (field: IField): IField => {
+    return {
+      ...field,
+      __id__: generateFieldId(),
+      field: generateFieldKey(field.type),
+      children: field.children?.map((child) => copy(child)),
+    };
+  };
+  return copy(field);
+};
+
+/*********** operators  ************/
+export const copyField = (field: IField) => {
+  const fields = getFieldAtFields(field);
+  const index = fields.findIndex((fd) => fd.__id__ === field.__id__);
+  fields.splice(index + 1, 0, _copyField(field));
 };
