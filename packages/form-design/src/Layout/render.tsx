@@ -9,6 +9,7 @@ import { useLabel, useProps } from '../hooks/useGetProp';
 import DropContainer from './DropContainer';
 import FieldWrapper from './FieldWrapper';
 import { observer } from 'mobx-react';
+import FieldOperators from '../FieldOperators/Container';
 
 export const RenderPlaceholder: FC<{
   field?: IField;
@@ -58,6 +59,11 @@ export const RenderColField: FC<{
           addOrMoveField(field.children!, item, nextId);
         }}
       />
+      {active ? (
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <FieldOperators field={field} />
+        </Box>
+      ) : null}
     </Component>
   ) : null;
 });
@@ -67,7 +73,6 @@ export const RenderRealField: FC<{ field: IField }> = observer(({ field }) => {
   const fieldItem = UIFactory.get(field.type)!;
   const Component = fieldItem.component;
   const props = useProps(field);
-  console.log('props', props);
   return (
     <FieldWrapper
       hideBackdrop={field.type === Field.row}
