@@ -12,6 +12,8 @@ const PropSetting: FC<IProps> = ({ prop }) => {
   if (Comp) {
     return (
       <Comp
+        disabled={prop.disabled}
+        required={prop.required}
         value={prop.value}
         onChange={(v) => {
           prop.value = v;

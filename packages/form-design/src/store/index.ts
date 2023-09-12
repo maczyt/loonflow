@@ -5,6 +5,7 @@ import {
   generateFieldKey,
   generateNewField,
   IField,
+  Prop,
 } from '@loonflow/schema';
 import { configure, makeAutoObservable, toJS } from 'mobx';
 import { DragItem } from '../types';
@@ -137,13 +138,24 @@ export const getFieldAtFields = (field: IField) => {
 };
 
 const _copyField = (field: IField) => {
+  const copyProp = (prop: Prop, field: IField): Prop => {
+    if (prop.type === FieldProp.key)
+      return {
+        ...prop,
+        value: generateFieldKey(field.type),
+      };
+    return {
+      ...prop,
+    };
+  };
   // TODO: 增强属性配置
   const copy = (field: IField): IField => {
     return {
       ...field,
       __id__: generateFieldId(),
-      field: generateFieldKey(field.type),
+      // field: generateFieldKey(field.type),
       children: field.children?.map((child) => copy(child)),
+      props: field.props?.map((prop) => copyProp(prop, field)),
     };
   };
   return copy(field);

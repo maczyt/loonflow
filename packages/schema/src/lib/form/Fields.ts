@@ -9,7 +9,6 @@ export const generateFieldKey = (prefix: string) => `${prefix}-${uid()}`;
 export const fieldGeneratorFactory = new Register<Field, () => IField>();
 fieldGeneratorFactory.set(Field.input, () => ({
   type: Field.input,
-  field: generateFieldKey('input'),
   __id__: generateFieldId(),
   props: [
     {
@@ -20,11 +19,15 @@ fieldGeneratorFactory.set(Field.input, () => ({
       type: FieldProp.placeholder,
       value: '',
     },
+    {
+      type: FieldProp.key,
+      value: generateFieldKey('input'),
+      required: true,
+    },
   ],
 }));
 fieldGeneratorFactory.set(Field.textarea, () => ({
   type: Field.textarea,
-  field: generateFieldKey('textarea'),
   __id__: generateFieldId(),
   props: [
     {

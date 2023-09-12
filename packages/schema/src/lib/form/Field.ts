@@ -3,7 +3,7 @@ import { Prop } from './Props';
 export interface IField {
   __id__: string;
   type: Field;
-  field?: string;
+  // field?: string;
   props?: Prop[];
   children?: IField[];
 }

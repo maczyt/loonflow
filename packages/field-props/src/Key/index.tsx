@@ -3,10 +3,11 @@ import { FC } from 'react';
 import FormItem from '../FormItem';
 import { FieldPropProps } from '@loonflow/schema';
 
-const Title: FC<FieldPropProps> = ({ value, onChange }) => {
+const Key: FC<FieldPropProps> = ({ required, disabled, value, onChange }) => {
   return (
-    <FormItem label="名称" required>
+    <FormItem label="字段标识" required={required}>
       <Input
+        disabled={disabled}
         value={value}
         onChange={(ev) => {
           onChange?.(ev.target.value);
@@ -16,4 +17,4 @@ const Title: FC<FieldPropProps> = ({ value, onChange }) => {
   );
 };
 
-export default Title;
+export default Key;

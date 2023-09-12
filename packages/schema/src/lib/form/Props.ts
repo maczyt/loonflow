@@ -9,11 +9,22 @@ export enum FieldProp {
   span = 'span',
   /** 栅格区块间隔 */
   gutter = 'gutter',
+  /** 字段标识 */
+  key = 'key',
+}
+
+export interface FieldPropProps {
+  value?: any;
+  onChange?: (v: any) => void;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 export interface Prop {
   type: FieldProp;
   value: any;
+  disabled?: boolean;
+  required?: boolean;
 }
 
 /**
@@ -25,9 +36,9 @@ export const BasicFieldProps = [
   FieldProp.helper,
   FieldProp.span,
   FieldProp.gutter,
-] as const;
+];
 
 /**
  * 高级属性配置列表
  */
-export const AdvanceFieldProps: FieldProp[] = [];
+export const AdvanceFieldProps: FieldProp[] = [FieldProp.key];

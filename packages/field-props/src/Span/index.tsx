@@ -1,11 +1,9 @@
 import { InputNumber } from 'antd';
 import { FC } from 'react';
 import FormItem from '../FormItem';
+import { FieldPropProps } from '@loonflow/schema';
 
-const Span: FC<{
-  value?: number;
-  onChange?: (val: number) => void;
-}> = ({ value, onChange }) => {
+const Span: FC<FieldPropProps> = ({ value, onChange }) => {
   return (
     <FormItem label="格数">
       <InputNumber

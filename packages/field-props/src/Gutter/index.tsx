@@ -1,11 +1,9 @@
 import { InputNumber } from 'antd';
 import { FC } from 'react';
 import FormItem from '../FormItem';
+import { FieldPropProps } from '@loonflow/schema';
 
-const Gutter: FC<{
-  value?: number;
-  onChange?: (val: number) => void;
-}> = ({ value, onChange }) => {
+const Gutter: FC<FieldPropProps> = ({ value, onChange }) => {
   return (
     <FormItem label="区块间隔">
       <InputNumber

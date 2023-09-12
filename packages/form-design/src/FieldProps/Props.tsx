@@ -66,7 +66,15 @@ const Props: React.FC = () => {
           {
             key: 'advance',
             label: '高级设置',
-            children: <div>advance</div>,
+            children: (
+              <Box>
+                <Form layout="vertical">
+                  {advanceFieldProps?.map((prop, index) => {
+                    return <PropSetting prop={prop} key={index} />;
+                  })}
+                </Form>
+              </Box>
+            ),
           },
         ]}
         onChange={(key) => {
