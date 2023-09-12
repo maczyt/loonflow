@@ -1,4 +1,4 @@
-import { Col } from 'antd';
+import { Col, ColProps } from 'antd';
 import React, { CSSProperties, ReactNode } from 'react';
 import type { IFieldProps } from '../types';
 
@@ -8,14 +8,15 @@ interface IProps extends IFieldProps {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   style?: CSSProperties;
 }
-const FieldComponent: React.FC<IProps> = ({
+const FieldComponent: React.FC<IProps & ColProps> = ({
   children,
   className,
   onClick,
   style,
+  ...rest
 }) => {
   return (
-    <Col onClick={onClick} style={style} span={24} className={className}>
+    <Col {...rest} onClick={onClick} style={style} className={className}>
       {children}
     </Col>
   );

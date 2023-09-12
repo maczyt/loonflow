@@ -11,7 +11,6 @@ const Copy: FC<{ field: IField }> = ({ field }) => {
         size="small"
         type="primary"
         onClick={(ev) => {
-          console.log('sdfsdfs');
           copyField(field);
         }}
       >

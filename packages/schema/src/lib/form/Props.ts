@@ -5,6 +5,10 @@ export enum FieldProp {
   placeholder = 'placeholder',
   /** 描述文案 */
   helper = 'helper',
+  /** 栅格列 */
+  span = 'span',
+  /** 栅格区块间隔 */
+  gutter = 'gutter',
 }
 
 export interface Prop {
@@ -19,6 +23,8 @@ export const BasicFieldProps = [
   FieldProp.title,
   FieldProp.placeholder,
   FieldProp.helper,
+  FieldProp.span,
+  FieldProp.gutter,
 ] as const;
 
 /**

@@ -13,6 +13,7 @@ const FieldOperators: FC<{
     <Box
       sx={{
         display: 'flex',
+        gap: '4px',
       }}
     >
       {operators.map((op) => {

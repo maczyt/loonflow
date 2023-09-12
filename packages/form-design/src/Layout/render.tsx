@@ -5,7 +5,7 @@ import { Form } from 'antd';
 import { Box } from '@mui/system';
 import { Field, IField } from '@loonflow/schema';
 import { DnDTypes } from '../types';
-import { useLabel } from '../hooks/useGetProp';
+import { useLabel, useProps } from '../hooks/useGetProp';
 import DropContainer from './DropContainer';
 import FieldWrapper from './FieldWrapper';
 import { observer } from 'mobx-react';
@@ -28,8 +28,10 @@ export const RenderColField: FC<{
   const fieldItem = UIFactory.get(field.type);
   const Component = fieldItem?.component;
   const active = store.activeFieldId === field?.__id__;
+  const props = useProps(field);
   return Component ? (
     <Component
+      {...props}
       style={{
         padding: '8px',
         outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
@@ -64,6 +66,8 @@ export const RenderRealField: FC<{ field: IField }> = observer(({ field }) => {
   const label = useLabel(field);
   const fieldItem = UIFactory.get(field.type)!;
   const Component = fieldItem.component;
+  const props = useProps(field);
+  console.log('props', props);
   return (
     <FieldWrapper
       hideBackdrop={field.type === Field.row}
@@ -73,7 +77,7 @@ export const RenderRealField: FC<{ field: IField }> = observer(({ field }) => {
       }}
     >
       <Form.Item label={label}>
-        <Component>
+        <Component {...props}>
           {field.children?.map((childField) => (
             <RenderField field={childField} key={childField.__id__} />
           ))}

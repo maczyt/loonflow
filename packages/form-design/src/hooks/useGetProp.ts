@@ -1,23 +1,53 @@
-import { FieldProp, IField } from '@loonflow/schema';
+import { FieldProp, IField, Prop } from '@loonflow/schema';
 import { observe } from 'mobx';
 import { useEffect, useState } from 'react';
+import { pickBy, isNil } from 'lodash-es';
 
-export const useLabel = (field: IField) => {
-  const [label, setLabel] = useState('');
+const useWatchProp = (defaultValue: any, prop?: Prop) => {
+  const [value, setValue] = useState<any>(defaultValue);
   useEffect(() => {
-    const labelProp = field.props?.find(
-      (prop) => prop.type === FieldProp.title
-    );
-    if (labelProp) {
-      setLabel(labelProp.value);
-      const dispose = observe(labelProp, (ev) => {
+    if (prop) {
+      setValue(prop.value);
+      const dispose = observe(prop, (ev) => {
         // @ts-ignore
-        setLabel(ev.newValue);
+        setValue(ev.newValue);
       });
       return () => {
         dispose();
       };
     }
-  }, [field]);
-  return label;
+  }, [prop]);
+  return value;
+};
+
+export const useLabel = (field: IField) => {
+  const labelProp = field.props?.find((prop) => prop.type === FieldProp.title);
+  const value = useWatchProp('', labelProp);
+  return value;
+};
+
+export const useSpan = (field: IField) => {
+  const spanProp = field.props?.find((prop) => prop.type === FieldProp.span);
+  const value = useWatchProp(null, spanProp);
+  return value;
+};
+
+export const useGutter = (field: IField) => {
+  const gutterProp = field.props?.find(
+    (prop) => prop.type === FieldProp.gutter
+  );
+  const value = useWatchProp(null, gutterProp);
+  return value;
+};
+
+export const useProps = (field: IField) => {
+  const span = useSpan(field);
+  const gutter = useGutter(field);
+  return pickBy(
+    {
+      span,
+      gutter: gutter ? [gutter, gutter] : null,
+    },
+    (v) => !isNil(v)
+  );
 };

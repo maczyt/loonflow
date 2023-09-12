@@ -41,10 +41,22 @@ fieldGeneratorFactory.set(Field.col, () => ({
   type: Field.col,
   __id__: generateFieldId(),
   children: [],
+  props: [
+    {
+      type: FieldProp.span,
+      value: 12,
+    },
+  ],
 }));
 fieldGeneratorFactory.set(Field.row, () => ({
   type: Field.row,
   __id__: generateFieldId(),
+  props: [
+    {
+      type: FieldProp.gutter,
+      value: 8,
+    },
+  ],
   children: [fieldGeneratorFactory.get(Field.col)?.()].filter(
     (v): v is IField => Boolean(v)
   ),

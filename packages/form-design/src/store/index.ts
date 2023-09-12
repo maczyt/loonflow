@@ -155,3 +155,14 @@ export const copyField = (field: IField) => {
   const index = fields.findIndex((fd) => fd.__id__ === field.__id__);
   fields.splice(index + 1, 0, _copyField(field));
 };
+export const deleteField = (field: IField) => {
+  const fields = getFieldAtFields(field);
+  const index = fields.findIndex((fd) => fd.__id__ === field.__id__);
+  fields.splice(index, 1);
+};
+export const addColumnField = (rowField: IField) => {
+  if (!rowField.children) {
+    rowField.children = [];
+  }
+  rowField.children.push(generateNewField(Field.col));
+};
