@@ -11,6 +11,8 @@ export enum FieldProp {
   gutter = 'gutter',
   /** 字段标识 */
   key = 'key',
+  /** 默认值 */
+  default_value = 'default_value',
 }
 
 export interface FieldPropProps {
@@ -36,6 +38,7 @@ export const BasicFieldProps = [
   FieldProp.helper,
   FieldProp.span,
   FieldProp.gutter,
+  FieldProp.default_value,
 ];
 
 /**

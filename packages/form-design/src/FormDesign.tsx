@@ -14,6 +14,7 @@ const FormDesign = () => {
         background: '#f7f8fa',
         display: 'grid',
         overflow: 'hidden',
+        gridTemplateRows: '100%',
         gridTemplateColumns: '300px 1fr 300px',
       }}
     >

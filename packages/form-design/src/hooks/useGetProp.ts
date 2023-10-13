@@ -26,6 +26,17 @@ export const useLabel = (field: IField) => {
   return value;
 };
 
+export const useHelper = (field: IField) => {
+  const prop = field.props?.find((prop) => prop.type === FieldProp.helper);
+  return useWatchProp('', prop);
+};
+
+export const usePlaceholder = (field: IField) => {
+  console.log(field);
+  const prop = field.props?.find((prop) => prop.type === FieldProp.placeholder);
+  return useWatchProp(null, prop);
+};
+
 export const useSpan = (field: IField) => {
   const spanProp = field.props?.find((prop) => prop.type === FieldProp.span);
   const value = useWatchProp(null, spanProp);
@@ -43,10 +54,12 @@ export const useGutter = (field: IField) => {
 export const useProps = (field: IField) => {
   const span = useSpan(field);
   const gutter = useGutter(field);
+  const placeholder = usePlaceholder(field);
   return pickBy(
     {
       span,
       gutter: gutter ? [gutter, gutter] : null,
+      placeholder,
     },
     (v) => !isNil(v)
   );

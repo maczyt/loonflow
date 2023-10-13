@@ -16,7 +16,15 @@ fieldGeneratorFactory.set(Field.input, () => ({
       value: '单行文本',
     },
     {
+      type: FieldProp.helper,
+      value: '',
+    },
+    {
       type: FieldProp.placeholder,
+      value: '',
+    },
+    {
+      type: FieldProp.default_value,
       value: '',
     },
     {

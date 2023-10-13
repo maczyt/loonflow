@@ -5,7 +5,7 @@ import { Form } from 'antd';
 import { Box } from '@mui/system';
 import { Field, IField } from '@loonflow/schema';
 import { DnDTypes } from '../types';
-import { useLabel, useProps } from '../hooks/useGetProp';
+import { useHelper, useLabel, useProps } from '../hooks/useGetProp';
 import DropContainer from './DropContainer';
 import FieldWrapper from './FieldWrapper';
 import { observer } from 'mobx-react';
@@ -70,6 +70,7 @@ export const RenderColField: FC<{
 
 export const RenderRealField: FC<{ field: IField }> = observer(({ field }) => {
   const label = useLabel(field);
+  const extra = useHelper(field);
   const fieldItem = UIFactory.get(field.type)!;
   const Component = fieldItem.component;
   const props = useProps(field);
@@ -81,7 +82,7 @@ export const RenderRealField: FC<{ field: IField }> = observer(({ field }) => {
         minHeight: 50,
       }}
     >
-      <Form.Item label={label}>
+      <Form.Item label={label} extra={extra}>
         <Component {...props}>
           {field.children?.map((childField) => (
             <RenderField field={childField} key={childField.__id__} />

@@ -52,6 +52,7 @@ const FieldList = () => {
       sx={{
         background: '#fff',
         padding: '0 24px',
+        overflowY: 'auto',
       }}
     >
       <div>

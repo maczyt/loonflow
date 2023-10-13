@@ -24,14 +24,13 @@ const Props: React.FC = () => {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
+        '.ant-tabs': {
+          overflow: 'hidden',
+        },
         '.ant-tabs-content': {
           height: '100%',
-          overflow: 'hidden',
-          padding: '0 16px',
-        },
-        '.ant-tabs-tabpane': {
-          height: '100%',
           overflow: 'auto',
+          padding: '0 16px',
         },
       }}
     >
