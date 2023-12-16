@@ -1,8 +1,6 @@
 import { Field } from '@loonflow/schema';
 import { Box } from '@mui/system';
 import { FC, ReactNode } from 'react';
-import { useDrag } from 'react-dnd';
-import { DnDTypes } from '../types';
 
 interface IProps {
   title: string;
@@ -10,17 +8,8 @@ interface IProps {
   fieldType: Field;
 }
 const FieldTag: FC<IProps> = ({ title, icon, fieldType }) => {
-  const [_, drag] = useDrag(() => {
-    return {
-      type: DnDTypes.box,
-      item: {
-        type: fieldType,
-      },
-    };
-  });
   return (
     <Box
-      ref={drag}
       sx={{
         background: '#f7f8fa',
         borderRadius: '2px',
@@ -37,6 +26,8 @@ const FieldTag: FC<IProps> = ({ title, icon, fieldType }) => {
           color: '#155BD4',
         },
       }}
+      data-field-type={fieldType}
+      className="drag-field-item"
     >
       <Box
         sx={{

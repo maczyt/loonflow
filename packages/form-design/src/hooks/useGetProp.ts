@@ -32,7 +32,6 @@ export const useHelper = (field: IField) => {
 };
 
 export const usePlaceholder = (field: IField) => {
-  console.log(field);
   const prop = field.props?.find((prop) => prop.type === FieldProp.placeholder);
   return useWatchProp(null, prop);
 };

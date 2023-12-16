@@ -2,8 +2,6 @@ import { Box } from '@mui/system';
 import FieldList from './FieldList';
 import Layout from './Layout';
 import FieldProps from './FieldProps';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const FormDesign = () => {
   return (
@@ -18,11 +16,9 @@ const FormDesign = () => {
         gridTemplateColumns: '300px 1fr 300px',
       }}
     >
-      <DndProvider backend={HTML5Backend}>
-        <FieldList />
-        <Layout />
-        <FieldProps />
-      </DndProvider>
+      <FieldList />
+      <Layout />
+      <FieldProps />
     </Box>
   );
 };

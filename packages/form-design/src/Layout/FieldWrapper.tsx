@@ -24,6 +24,7 @@ const FieldWrapper: FC<{
         outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
         position: 'relative',
         cursor: 'pointer',
+        marginBottom: '8px',
         '.ant-form-item': {
           marginBottom: 0,
         },

@@ -1,0 +1,23 @@
+.container-sortable-ghost {
+  &.drag-field-item {
+    height: 16px !important;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #2e73ff;
+      border-radius: 4px;
+    }
+  }
+}
+
+.container-sortable-drag {
+  background-color: #fff;
+}
