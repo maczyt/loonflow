@@ -1,36 +1,25 @@
 import { Box } from '@mui/system';
-import { addOrMoveField, store } from '../store';
-import { DnDTypes } from '../types';
-import Empty from './Empty';
-import { RenderField, RenderPlaceholder } from './render';
-import DropContainer from './DropContainer';
+import { store } from '../store';
 import { observer } from 'mobx-react';
-import { removePlaceholderEle } from '../hooks/useNestedDrop';
+import StyledContainer from './Container';
 
 const Layout = () => {
   return (
     <Box
       sx={{
-        padding: '16px 16px 0',
+        position: 'relative',
       }}
     >
-      <DropContainer
-        sx={{
-          height: '100%',
-          background: '#fff',
-        }}
-        level="container"
-        accept={DnDTypes.box}
+      <StyledContainer
         fields={store.fields}
-        renderPlaceholder={(field) => <RenderPlaceholder field={field} />}
-        renderEmpty={() => <Empty />}
-        renderField={(field) => <RenderField field={field} />}
-        onDrop={(item, nextId) => {
-          addOrMoveField(store.fields, item, nextId);
+        droppable
+        showEmpty
+        sx={{
+          overflow: 'auto',
+          padding: '16px',
+          minHeight: 'none',
         }}
-        onLeave={() => {
-          removePlaceholderEle();
-        }}
+        parentFieldId="__root__"
       />
     </Box>
   );

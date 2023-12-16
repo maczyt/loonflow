@@ -178,3 +178,11 @@ export const addColumnField = (rowField: IField) => {
   }
   rowField.children.push(generateNewField(Field.col));
 };
+
+export const getFieldsById = (fieldId: string) => {
+  if (fieldId === '__root__') {
+    return store.fields;
+  }
+  const field = store.flattenFields[fieldId];
+  return field?.children ?? [];
+};

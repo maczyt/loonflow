@@ -12,12 +12,14 @@
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
     "ahooks": "^3.7.8",
+    "array-move": "^4.0.0",
     "mobx": "^6.10.0",
     "mobx-react": "^9.0.0",
-    "react-dnd": "^16.0.1",
-    "react-dnd-html5-backend": "^16.0.1"
+    "sortablejs": "^1.15.1"
   },
   "devDependencies": {
-    "@mobx-devtools/tools": "^0.0.4"
+    "@mobx-devtools/tools": "^0.0.4",
+    "@types/sortablejs": "^1.15.7",
+    "less": "^4.2.0"
   }
 }

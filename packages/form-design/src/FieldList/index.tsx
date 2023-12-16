@@ -3,6 +3,7 @@ import { Fragment, ReactNode } from 'react';
 import { IconMultiText, IconRow, IconSingleText } from '@loonflow/icon';
 import FieldTag from './FieldTag';
 import { Box } from '@mui/system';
+import DragWrapper from './DragWrapper';
 
 enum Category {
   base = '基础控件',
@@ -54,6 +55,7 @@ const FieldList = () => {
         padding: '0 24px',
         overflowY: 'auto',
       }}
+      className="field-list-wrapper"
     >
       <div>
         {Object.keys(fieldTagsMap).map((category) => {
@@ -70,7 +72,7 @@ const FieldList = () => {
               >
                 {category}
               </Box>
-              <Box
+              <DragWrapper
                 sx={{
                   display: 'grid',
                   gridTemplateColumns: '1fr 1fr',
@@ -87,7 +89,7 @@ const FieldList = () => {
                     />
                   );
                 })}
-              </Box>
+              </DragWrapper>
             </Fragment>
           );
         })}
