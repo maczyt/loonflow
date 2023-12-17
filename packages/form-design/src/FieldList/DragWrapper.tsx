@@ -19,12 +19,6 @@ const DragWrapper: React.FC<
         put: false,
       },
       sort: false,
-      onChange(evt) {
-        console.log('change', evt);
-      },
-      onMove() {
-        console.log('move');
-      },
       setData(dataTransfer, draggedElement) {
         dataTransfer.setData('field-type', draggedElement.dataset.fieldType!);
       },

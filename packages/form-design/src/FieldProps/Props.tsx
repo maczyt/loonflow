@@ -6,18 +6,28 @@ import {
 import { Box } from '@mui/system';
 import { Form, Tabs, Typography } from 'antd';
 import { observer } from 'mobx-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { store } from '../store';
 import PropSetting from './Prop';
 
 const Props: React.FC = () => {
   const [tabKey, setTabKey] = useState('basic');
+  const [form] = Form.useForm();
   const basicFieldProps = store.activeField?.props?.filter((prop) =>
     BasicFieldProps.includes(prop.type)
   );
   const advanceFieldProps = store.activeField?.props?.filter((prop) =>
     AdvanceFieldProps.includes(prop.type)
   );
+
+  useEffect(() => {
+    const newState = store.activeField.props?.reduce((map, prop) => {
+      map[prop.type] = prop.value;
+      return map;
+    }, Object.create(null));
+    form.setFieldsValue(newState);
+  }, [store.activeField]);
+
   return (
     <Box
       sx={{
@@ -40,46 +50,73 @@ const Props: React.FC = () => {
       >
         {FieldTitle[store.activeField?.type]}
       </Typography.Title>
-      <Tabs
-        activeKey={tabKey}
-        tabBarStyle={{
-          padding: '0 16px',
+      <Form
+        form={form}
+        layout="vertical"
+        validateTrigger="onChange"
+        onFieldsChange={(changedFields) => {
+          changedFields.forEach((field) => {
+            if (field.validating) return;
+            const [name] = field.name;
+            const value = field.value;
+            // trigger change
+            const prop = store.activeField.props?.find(
+              (prop) => prop.type === name
+            );
+            if (!prop) return;
+            prop.value = value;
+
+            const fieldsError = form.getFieldsError();
+            store.errors.set(
+              store.activeFieldId,
+              fieldsError.reduce(
+                (arr, field) => [
+                  ...arr,
+                  [field.name[0] as string, field.errors],
+                ],
+                [] as any[]
+              )
+            );
+          });
         }}
-        style={{
-          flex: 1,
-        }}
-        items={[
-          {
-            key: 'basic',
-            label: '基础设置',
-            children: (
-              <Box>
-                <Form layout="vertical">
+      >
+        <Tabs
+          activeKey={tabKey}
+          tabBarStyle={{
+            padding: '0 16px',
+          }}
+          style={{
+            flex: 1,
+          }}
+          items={[
+            {
+              key: 'basic',
+              label: '基础设置',
+              children: (
+                <Box>
                   {basicFieldProps?.map((prop, index) => {
                     return <PropSetting prop={prop} key={index} />;
                   })}
-                </Form>
-              </Box>
-            ),
-          },
-          {
-            key: 'advance',
-            label: '高级设置',
-            children: (
-              <Box>
-                <Form layout="vertical">
+                </Box>
+              ),
+            },
+            {
+              key: 'advance',
+              label: '高级设置',
+              children: (
+                <Box>
                   {advanceFieldProps?.map((prop, index) => {
                     return <PropSetting prop={prop} key={index} />;
                   })}
-                </Form>
-              </Box>
-            ),
-          },
-        ]}
-        onChange={(key) => {
-          setTabKey(key);
-        }}
-      />
+                </Box>
+              ),
+            },
+          ]}
+          onChange={(key) => {
+            setTabKey(key);
+          }}
+        />
+      </Form>
     </Box>
   );
 };

@@ -16,6 +16,7 @@ configure({
 class DesignStore {
   activeFieldId = '';
   fields: IField[] = [];
+  errors: Map<string, [string, string[]][]> = new Map();
 
   constructor() {
     makeAutoObservable(this);

@@ -1,19 +1,15 @@
 import { Input } from 'antd';
-import { FC } from 'react';
-import FormItem from '../FormItem';
-import { FieldPropProps } from '@loonflow/schema';
+import { PropComponent } from '../types';
 
-const Helper: FC<FieldPropProps> = ({ value, onChange }) => {
+const Helper: PropComponent = ({ value, onChange }) => {
   return (
-    <FormItem label="描述">
-      <Input
-        value={value}
-        onChange={(ev) => {
-          onChange?.(ev.target.value);
-        }}
-      />
-    </FormItem>
+    <Input
+      value={value}
+      onChange={(ev) => {
+        onChange?.(ev.target.value);
+      }}
+    />
   );
 };
-
+Helper.label = '描述';
 export default Helper;

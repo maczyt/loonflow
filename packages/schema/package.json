@@ -4,5 +4,8 @@
   "type": "commonjs",
   "devDependencies": {
     "tslib": "^2.6.1"
+  },
+  "dependencies": {
+    "antd": "^5.7.3"
   }
 }

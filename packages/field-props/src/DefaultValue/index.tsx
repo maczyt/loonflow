@@ -1,19 +1,15 @@
 import { Input } from 'antd';
-import { FC } from 'react';
-import FormItem from '../FormItem';
-import { FieldPropProps } from '@loonflow/schema';
+import { PropComponent } from '../types';
 
-const DefaultValue: FC<FieldPropProps> = ({ value, onChange }) => {
+const DefaultValue: PropComponent = ({ value, onChange }) => {
   return (
-    <FormItem label="默认值">
-      <Input
-        value={value}
-        onChange={(ev) => {
-          onChange?.(ev.target.value);
-        }}
-      />
-    </FormItem>
+    <Input
+      value={value}
+      onChange={(ev) => {
+        onChange?.(ev.target.value);
+      }}
+    />
   );
 };
-
+DefaultValue.label = '默认值';
 export default DefaultValue;

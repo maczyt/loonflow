@@ -14,6 +14,12 @@ fieldGeneratorFactory.set(Field.input, () => ({
     {
       type: FieldProp.title,
       value: '单行文本',
+      required: true,
+      rules: [
+        {
+          required: true,
+        },
+      ],
     },
     {
       type: FieldProp.helper,
@@ -31,6 +37,11 @@ fieldGeneratorFactory.set(Field.input, () => ({
       type: FieldProp.key,
       value: generateFieldKey('input'),
       required: true,
+      rules: [
+        {
+          required: true,
+        },
+      ],
     },
   ],
 }));
