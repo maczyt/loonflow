@@ -32,3 +32,8 @@ export const FlowTabs = [
     key: FlowTabKeys.advance,
   },
 ];
+
+export type IFormDesignPropError = [string, string[]];
+export interface IFlowContext {
+  onFormDesignErrorsChange(errorMap: Map<string, IFormDesignPropError[]>): void;
+}
