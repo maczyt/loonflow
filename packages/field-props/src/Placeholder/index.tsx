@@ -1,19 +1,15 @@
 import { Input } from 'antd';
-import { FC } from 'react';
-import FormItem from '../FormItem';
-import { FieldPropProps } from '@loonflow/schema';
+import { PropComponent } from '../types';
 
-const Placeholder: FC<FieldPropProps> = ({ value, onChange }) => {
+const Placeholder: PropComponent = ({ value, onChange }) => {
   return (
-    <FormItem label="占位符">
-      <Input
-        value={value}
-        onChange={(ev) => {
-          onChange?.(ev.target.value);
-        }}
-      />
-    </FormItem>
+    <Input
+      value={value}
+      onChange={(ev) => {
+        onChange?.(ev.target.value);
+      }}
+    />
   );
 };
-
+Placeholder.label = '占位符';
 export default Placeholder;

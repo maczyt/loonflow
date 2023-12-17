@@ -1,4 +1,9 @@
-import { FlowTabKeys, FlowTabs, isFlowTabKeys } from '@loonflow/schema';
+import {
+  FlowTabKeys,
+  FlowTabs,
+  IFlowContext,
+  isFlowTabKeys,
+} from '@loonflow/schema';
 import { Box } from '@mui/system';
 import { Button, Tabs } from 'antd';
 import { useEffect, useMemo } from 'react';
@@ -95,7 +100,17 @@ const Flow = () => {
           overflow: 'hidden',
         }}
       >
-        {<Outlet />}
+        {
+          <Outlet
+            context={
+              {
+                onFormDesignErrorsChange(erros) {
+                  console.log('adhakdjh', erros);
+                },
+              } satisfies IFlowContext
+            }
+          />
+        }
       </Box>
     </Box>
   );

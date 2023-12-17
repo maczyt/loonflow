@@ -21,6 +21,10 @@ const RenderColField: React.FC<{
   const Component = fieldItem?.component;
   const active = store.activeFieldId === field?.__id__;
   const props = useProps(field);
+  const hasError = store.errors
+    .get(store.activeFieldId)
+    ?.some(([_, errors]) => errors.length > 0);
+  const color = hasError ? '#F56C6C' : '#2e73ff';
   return Component ? (
     <Component
       {...props}
@@ -29,7 +33,7 @@ const RenderColField: React.FC<{
         paddingRight: '8px',
         paddingTop: '8px',
         paddingBottom: '8px',
-        outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
+        outline: active ? `2px solid ${color}` : `1px dashed ${color}`,
         position: 'relative',
         cursor: 'pointer',
         boxSizing: 'border-box',

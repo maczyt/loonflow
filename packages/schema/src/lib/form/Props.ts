@@ -1,3 +1,5 @@
+import type { FormRule } from 'antd';
+
 export enum FieldProp {
   /** 名称 */
   title = 'title',
@@ -27,6 +29,7 @@ export interface Prop {
   value: any;
   disabled?: boolean;
   required?: boolean;
+  rules?: FormRule[];
 }
 
 /**

@@ -1,21 +1,19 @@
 import { InputNumber } from 'antd';
-import { FC } from 'react';
-import FormItem from '../FormItem';
-import { FieldPropProps } from '@loonflow/schema';
+import { PropComponent } from '../types';
 
-const Span: FC<FieldPropProps> = ({ value, onChange }) => {
+const Span: PropComponent = ({ value, onChange }) => {
   return (
-    <FormItem label="格数">
-      <InputNumber
-        min={1}
-        max={24}
-        value={value}
-        onChange={(val) => {
-          onChange?.(val!);
-        }}
-      />
-    </FormItem>
+    <InputNumber
+      min={1}
+      max={24}
+      value={value}
+      onChange={(val) => {
+        onChange?.(val!);
+      }}
+    />
   );
 };
+
+Span.label = '格数';
 
 export default Span;

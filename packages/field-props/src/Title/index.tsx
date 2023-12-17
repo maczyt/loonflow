@@ -1,19 +1,17 @@
 import { Input } from 'antd';
-import { FC } from 'react';
-import FormItem from '../FormItem';
-import { FieldPropProps } from '@loonflow/schema';
+import { PropComponent } from '../types';
 
-const Title: FC<FieldPropProps> = ({ value, onChange }) => {
+const Title: PropComponent = ({ value, onChange }) => {
   return (
-    <FormItem label="名称" required>
-      <Input
-        value={value}
-        onChange={(ev) => {
-          onChange?.(ev.target.value);
-        }}
-      />
-    </FormItem>
+    <Input
+      value={value}
+      onChange={(ev) => {
+        onChange?.(ev.target.value);
+      }}
+    />
   );
 };
+
+Title.label = '名称';
 
 export default Title;

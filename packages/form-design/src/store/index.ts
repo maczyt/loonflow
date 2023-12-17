@@ -5,6 +5,7 @@ import {
   generateFieldKey,
   generateNewField,
   IField,
+  IFormDesignPropError,
   Prop,
 } from '@loonflow/schema';
 import { configure, makeAutoObservable, toJS } from 'mobx';
@@ -16,6 +17,7 @@ configure({
 class DesignStore {
   activeFieldId = '';
   fields: IField[] = [];
+  errors: Map<string, IFormDesignPropError[]> = new Map();
 
   constructor() {
     makeAutoObservable(this);
@@ -57,6 +59,14 @@ class DesignStore {
         value: field.__id__,
       };
     });
+  }
+
+  get hasError() {
+    return Array.from(this.errors.values()).some((errors) =>
+      errors.some(([_, errors]) => {
+        return errors.length > 0;
+      })
+    );
   }
 }
 

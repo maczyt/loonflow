@@ -12,6 +12,10 @@ const FieldWrapper: FC<{
   hideBackdrop?: boolean;
 }> = ({ children, sx, field, hideBackdrop }) => {
   const active = store.activeFieldId === field?.__id__;
+  const hasError = store.errors
+    .get(store.activeFieldId)
+    ?.some(([_, errors]) => errors.length > 0);
+  const color = hasError ? '#F56C6C' : '#2e73ff';
   return (
     <Box
       onClick={(ev) => {
@@ -21,7 +25,7 @@ const FieldWrapper: FC<{
       }}
       sx={{
         padding: '10px',
-        outline: active ? `2px solid #2e73ff` : `1px dashed #2e73ff`,
+        outline: active ? `2px solid ${color}` : `1px dashed ${color}`,
         position: 'relative',
         cursor: 'pointer',
         marginBottom: '8px',

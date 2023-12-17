@@ -9,7 +9,12 @@ import Helper from './Helper';
 import Placeholder from './Placeholder';
 import DefaultValue from './DefaultValue';
 
-export const fieldPropsFactory = new Register<FieldProp, FC<FieldPropProps>>();
+export const fieldPropsFactory = new Register<
+  FieldProp,
+  FC<FieldPropProps> & {
+    label: string;
+  }
+>();
 
 // register
 fieldPropsFactory.set(FieldProp.title, Title);
