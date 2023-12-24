@@ -3,6 +3,9 @@
   "version": "0.0.1",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "scripts": {
+    "build": "cd ../../ && nx run icon:build && node ./packages/icon/scripts/types.js"
+  },
   "exports": {
     ".": {
       "import": "./index.mjs",
@@ -10,6 +13,8 @@
     }
   },
   "devDependencies": {
-    "vite-plugin-svgr": "^3.2.0"
+    "@svgr/rollup": "^8.1.0",
+    "glob": "^10.3.10",
+    "vite": "~4.3.9"
   }
 }

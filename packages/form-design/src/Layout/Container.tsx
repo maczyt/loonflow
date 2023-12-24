@@ -40,6 +40,7 @@ const RenderColField: React.FC<{
         marginBottom: '8px',
         display: 'flex',
         flexDirection: 'column',
+        background: '#fff',
       }}
       onClick={(ev) => {
         ev.preventDefault();

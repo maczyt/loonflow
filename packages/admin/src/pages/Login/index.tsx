@@ -6,7 +6,7 @@ import {
 } from '@ant-design/pro-components';
 import { awaitHandler } from '@loonflow/common-tools';
 import { BackgroundCanvas } from '@loonflow/components';
-import { IconLogo } from '@loonflow/icon';
+import Icons from '@loonflow/icon';
 import { Box } from '@mui/system';
 import { Tabs } from 'antd';
 import { useState } from 'react';
@@ -50,7 +50,7 @@ const Login = () => {
                 color: '#1677ff',
               }}
             >
-              <IconLogo />
+              <Icons.IconLogo />
             </Box>
           }
           title="Loonflow"

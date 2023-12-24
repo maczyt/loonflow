@@ -1,4 +1,4 @@
-import { IconEmpty } from '@loonflow/icon';
+import Icons from '@loonflow/icon';
 import { Box } from '@mui/system';
 import { Empty as AntEmpty } from 'antd';
 import { observer } from 'mobx-react';
@@ -33,7 +33,7 @@ const FieldProps = () => {
           style={{
             marginTop: '120px',
           }}
-          image={<IconEmpty />}
+          image={<Icons.IconEmpty />}
           description="请在左侧画布选中控件"
         />
       )}

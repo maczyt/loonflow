@@ -20,7 +20,7 @@
       "@loonflow/components": ["packages/components/src/index.ts"],
       "@loonflow/field-props": ["packages/field-props/src/index.ts"],
       "@loonflow/form-design": ["packages/form-design/src/index.ts"],
-      "@loonflow/icon": ["packages/icon/src/index.ts"],
+      "@loonflow/icon": ["dist/packages/icon"],
       "@loonflow/locales": ["packages/locales/src/index.ts"],
       "@loonflow/process-design": ["packages/process-design/src/index.ts"],
       "@loonflow/render-ui": ["packages/render-ui/src/index.ts"],

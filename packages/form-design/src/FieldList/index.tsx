@@ -1,6 +1,6 @@
 import { Field } from '@loonflow/schema';
 import { Fragment, ReactNode } from 'react';
-import { IconMultiText, IconRow, IconSingleText } from '@loonflow/icon';
+import Icons from '@loonflow/icon';
 import FieldTag from './FieldTag';
 import { Box } from '@mui/system';
 import DragWrapper from './DragWrapper';
@@ -18,19 +18,23 @@ const fieldTags: Array<{
 }> = [
   {
     type: Field.input,
-    icon: <IconSingleText />,
+    icon: <Icons.IconSingleText />,
     title: '单行文本',
     category: Category.base,
   },
   {
     type: Field.textarea,
-    icon: <IconMultiText />,
+    icon: <Icons.IconMultiText />,
     title: '多行文本',
     category: Category.base,
   },
+  // {
+  //   type: Field.number,
+  //   // icon:
+  // }
   {
     type: Field.row,
-    icon: <IconRow />,
+    icon: <Icons.IconRow />,
     title: '栅格布局',
     category: Category.layout,
   },

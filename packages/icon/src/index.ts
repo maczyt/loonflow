@@ -1,30 +1,17 @@
-import { ReactComponent as IconSingleText } from './SingleText.svg';
-import { ReactComponent as IconEmpty } from './Empty.svg';
-import { ReactComponent as IconPlaceholder } from './Placeholder.svg';
-import { ReactComponent as IconMultiText } from './MultiText.svg';
-import { ReactComponent as IconRow } from './Row.svg';
-import { ReactComponent as IconRedo } from './Redo.svg';
-import { ReactComponent as IconUndo } from './Undo.svg';
-import { ReactComponent as IconSelection } from './Selection.svg';
+import { FunctionComponent, HTMLAttributes } from 'react';
 
-import { ReactComponent as IconStartNode } from './StartNode.svg';
-import { ReactComponent as IconEndNode } from './EndNode.svg';
-import { ReactComponent as IconRect } from './Rect.svg';
-import { ReactComponent as IconDiamond } from './Diamond.svg';
-import { ReactComponent as IconLogo } from './Logo.svg';
+const eagerImportModules = import.meta.glob('./*.svg', {
+  eager: true,
+}) satisfies Record<
+  string,
+  {
+    ReactComponent: FunctionComponent<HTMLAttributes<HTMLOrSVGElement>>;
+  }
+>;
 
-export {
-  IconSingleText,
-  IconEmpty,
-  IconPlaceholder,
-  IconMultiText,
-  IconRow,
-  IconRedo,
-  IconUndo,
-  IconStartNode,
-  IconEndNode,
-  IconRect,
-  IconDiamond,
-  IconSelection,
-  IconLogo,
-};
+export const icons = Object.keys(eagerImportModules).reduce((result, key) => {
+  const moduleName = key.match(/\/([^.]+)\.svg/)?.[1];
+  result[`Icon${moduleName}`] = eagerImportModules[key].ReactComponent;
+  return result;
+}, Object.create(null));
+export default icons;

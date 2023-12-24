@@ -29,6 +29,7 @@ const FieldWrapper: FC<{
         position: 'relative',
         cursor: 'pointer',
         marginBottom: '8px',
+        background: '#fff',
         '.ant-form-item': {
           marginBottom: 0,
         },

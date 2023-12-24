@@ -1,12 +1,5 @@
 import LogicFlow from '@logicflow/core';
-import {
-  IconDiamond,
-  IconEndNode,
-  IconRect,
-  IconRedo,
-  IconStartNode,
-  IconUndo,
-} from '@loonflow/icon';
+import Icons from '@loonflow/icon';
 import { NodeType } from '@loonflow/schema';
 import { message } from 'antd';
 import { useEffect, useMemo } from 'react';
@@ -22,14 +15,14 @@ const useToolbars = (lf: LogicFlow | null) => {
             [
               {
                 title: '上一步',
-                icon: <IconUndo />,
+                icon: <Icons.IconUndo />,
                 onClick() {
                   lf?.undo();
                 },
               },
               {
                 title: '下一步',
-                icon: <IconRedo />,
+                icon: <Icons.IconRedo />,
                 onClick() {
                   lf?.redo();
                 },
@@ -38,7 +31,7 @@ const useToolbars = (lf: LogicFlow | null) => {
             [
               {
                 label: '开始节点',
-                icon: <IconStartNode />,
+                icon: <Icons.IconStartNode />,
                 onMouseDown() {
                   if (!lf) return;
                   // max limit 1 start node
@@ -57,7 +50,7 @@ const useToolbars = (lf: LogicFlow | null) => {
               },
               {
                 label: '结束节点',
-                icon: <IconEndNode />,
+                icon: <Icons.IconEndNode />,
                 onMouseDown() {
                   if (!lf) return;
                   // max limit 1 end node
@@ -73,7 +66,7 @@ const useToolbars = (lf: LogicFlow | null) => {
               },
               {
                 label: '审批节点',
-                icon: <IconRect />,
+                icon: <Icons.IconRect />,
                 onMouseDown() {
                   lf?.dnd.startDrag({
                     type: NodeType.approve,
@@ -83,7 +76,7 @@ const useToolbars = (lf: LogicFlow | null) => {
               },
               {
                 label: '条件节点',
-                icon: <IconDiamond />,
+                icon: <Icons.IconDiamond />,
                 onMouseDown() {
                   lf?.dnd.startDrag({
                     type: NodeType.condition,

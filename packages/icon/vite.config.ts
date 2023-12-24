@@ -4,7 +4,8 @@ import react from '@vitejs/plugin-react';
 import viteTsConfigPaths from 'vite-tsconfig-paths';
 import dts from 'vite-plugin-dts';
 import * as path from 'path';
-import svgr from 'vite-plugin-svgr';
+// import svgr from 'vite-plugin-svgr';
+import svgr from '@svgr/rollup';
 
 export default defineConfig({
   cacheDir: '../../node_modules/.vite/icon',
@@ -44,6 +45,9 @@ export default defineConfig({
       formats: ['es', 'cjs'],
     },
     rollupOptions: {
+      output: {
+        exports: 'auto',
+      },
       // External packages that should not be bundled into your library.
       external: ['react', 'react-dom', 'react/jsx-runtime'],
     },

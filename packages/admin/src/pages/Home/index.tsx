@@ -2,7 +2,7 @@ import { Avatar, Layout, Menu, MenuProps, theme } from 'antd';
 import { DesktopOutlined, UserOutlined } from '@ant-design/icons';
 import { useEffect, useMemo, useState } from 'react';
 import { Box } from '@mui/system';
-import { IconLogo } from '@loonflow/icon';
+import Icons from '@loonflow/icon';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { takeRight, dropRight } from 'lodash-es';
 import { t } from 'i18next';
@@ -104,7 +104,7 @@ const Home = () => {
               alignItems: 'center',
             }}
           >
-            <IconLogo
+            <Icons.IconLogo
               style={{
                 fontSize: '40px',
               }}
